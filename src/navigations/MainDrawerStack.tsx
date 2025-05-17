@@ -4,10 +4,11 @@ import MainBottomTab from "./MainBottomTab";
 import AboutUs from "../components/home/DrawerScreen/AboutUs";
 import Settings from "../components/home/DrawerScreen/Settings";
 import { Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
-const MainDrawerStack = () => {
+const MainDrawerStack = ({navigation}) => {
   return (
     <Drawer.Navigator
       initialRouteName="JhatpatFood"
@@ -40,6 +41,27 @@ const MainDrawerStack = () => {
           drawerLabel: "Home",
           drawerIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color="#fff"
+              style={{ marginRight: 15 }}
+              onPress={() => {
+                console.log("Notifications Pressed");
+                navigation.navigate("NotificationScreen");
+              }}
+            />
+            // <View style={{ flexDirection: "row", alignItems: "center" }}>
+            //   <Ionicons
+            //     name="search"
+            //     size={22}
+            //     color="#333"
+            //     style={{ marginRight: 12 }}
+            //   />
+            //   <Ionicons name="notifications-outline" size={22} color="#333" />
+            // </View>
           ),
         }}
       />

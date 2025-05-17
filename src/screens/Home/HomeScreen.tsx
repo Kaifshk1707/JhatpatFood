@@ -1,134 +1,202 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import TypeWriter from "react-native-typewriter"; 
 
-const featuredRestaurants = [
+const categories = [
+  { id: "1", icon: "hamburger", name: "Burger" },
+  { id: "2", icon: "local-drink", name: "Drinks" },
+  { id: "3", icon: "local-pizza", name: "Pizza" },
+];
+
+const foodItems = [
   {
     id: "1",
-    name: "Spicy Biryani House",
+    title: "Ordinary Burgers",
     image:
       "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=60",
-    rating: 4.5,
+    rating: 4.9,
+    time: "10min",
+    price: "$17,230",
   },
   {
     id: "2",
-    name: "Burger Hub",
+    title: "Burger With Meat",
     image:
       "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=60",
-    rating: 4.2,
+    rating: 4.8,
+    time: "11min",
+    price: "$17,230",
   },
   {
     id: "3",
-    name: "Veggie Delight",
+    title: "Cheese Burger",
     image:
       "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=60",
     rating: 4.7,
+    time: "12min",
+    price: "$17,230",
   },
 ];
 
 const HomeScreen = () => {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome to JhatpatFood 🍽️</Text>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ScrollView style={{ flex: 1 }}>
+        {/*Header Hero Text */}
+        <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+          <Text style={{ fontSize: 22, color: "#333" }}>
+            <TypeWriter typing={1} maxDelay={120}>
+              Provide the best{" "}
+              <Text style={{ fontWeight: "bold" }}>food for you</Text>
+            </TypeWriter>
+          </Text>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Featured Restaurants</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.horizontalScroll}
+        {/* Category Row */}
+        <View
+          style={{
+            marginTop: 30,
+            marginBottom: 10,
+            paddingHorizontal: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
-          {featuredRestaurants.map((restaurant) => (
-            <TouchableOpacity key={restaurant.id} style={styles.card}>
-              <Image source={{ uri: restaurant.image }} style={styles.image} />
-              <View style={styles.cardContent}>
-                <Text style={styles.restaurantName}>{restaurant.name}</Text>
-                <View style={styles.ratingContainer}>
-                  <Ionicons name="star" size={16} color="#FFD700" />
-                  <Text style={styles.ratingText}>{restaurant.rating}</Text>
-                </View>
-              </View>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Find by Category
+          </Text>
+          <Text style={{ color: "#FF6F00", fontSize: 14 }}>See All</Text>
+        </View>
+
+        {/* Category List */}
+        <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
+          {categories.map((cat) => (
+            <TouchableOpacity
+              key={cat.id}
+              style={{
+                backgroundColor: "#FFF3E0",
+                padding: 12,
+                borderRadius: 12,
+                marginRight: 12,
+              }}
+            >
+              {cat.name === "Burger" ? (
+                <FontAwesome5 name="hamburger" size={20} color="#FF6F00" />
+              ) : cat.name === "Drinks" ? (
+                <MaterialIcons name="local-drink" size={20} color="#FF6F00" />
+              ) : (
+                <MaterialIcons name="local-pizza" size={20} color="#FF6F00" />
+              )}
             </TouchableOpacity>
           ))}
-        </ScrollView>
-      </View>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Popular Dishes</Text>
-        <Text style={styles.placeholderText}>
-          Explore delicious meals from top chefs near you!
-        </Text>
-      </View>
-    </ScrollView>
+        {/* Food Cards */}
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            paddingHorizontal: 20,
+            paddingTop: 20,
+            paddingBottom: 60,
+          }}
+        >
+          {foodItems.map((item) => (
+            <View
+              key={item.id}
+              style={{
+                width: "47%",
+                backgroundColor: "#FFF3E0",
+                borderRadius: 16,
+                marginBottom: 20,
+                padding: 10,
+                position: "relative",
+              }}
+            >
+              <Image
+                source={{ uri: item.image }}
+                style={{ width: "100%", height: 100, borderRadius: 12 }}
+              />
+              <TouchableOpacity
+                style={{
+                  position: "absolute",
+                  top: 12,
+                  right: 12,
+                  backgroundColor: "#fff",
+                  padding: 5,
+                  borderRadius: 20,
+                }}
+              >
+                <Ionicons name="heart-outline" size={18} color="#FF6F00" />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  marginTop: 10,
+                  fontWeight: "bold",
+                  fontSize: 14,
+                  color: "#333",
+                }}
+              >
+                {item.title}
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 4,
+                }}
+              >
+                <Ionicons name="star" size={14} color="#FFD700" />
+                <Text style={{ marginLeft: 4, fontSize: 12, color: "#777" }}>
+                  {item.rating}
+                </Text>
+                <Text
+                  style={{ marginHorizontal: 6, color: "#aaa", fontSize: 12 }}
+                >
+                  •
+                </Text>
+                <Text style={{ fontSize: 12, color: "#777" }}>{item.time}</Text>
+              </View>
+              <Text
+                style={{
+                  marginTop: 6,
+                  fontSize: 14,
+                  fontWeight: "600",
+                  color: "#FF6F00",
+                }}
+              >
+                {item.price}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+
+      {/* Bottom Navigation */}
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 60,
+          backgroundColor: "#fff",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          borderTopColor: "#eee",
+          borderTopWidth: 1,
+        }}
+      >
+        <Ionicons name="home" size={24} color="#FF6F00" />
+        <Ionicons name="heart-outline" size={24} color="#999" />
+        <Ionicons name="cart-outline" size={24} color="#999" />
+        <Ionicons name="person-outline" size={24} color="#999" />
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-  },
-  welcomeText: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#FF6F00",
-    marginBottom: 20,
-  },
-  section: {
-    marginBottom: 30,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
-    color: "#333",
-  },
-  horizontalScroll: {
-    paddingLeft: 4,
-  },
-  card: {
-    marginRight: 15,
-    width: 180,
-    borderRadius: 12,
-    backgroundColor: "#FFF3E0",
-    overflow: "hidden",
-    elevation: 3,
-  },
-  image: {
-    width: "100%",
-    height: 110,
-  },
-  cardContent: {
-    padding: 10,
-  },
-  restaurantName: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#444",
-  },
-  ratingContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 6,
-  },
-  ratingText: {
-    marginLeft: 6,
-    fontSize: 14,
-    color: "#777",
-  },
-  placeholderText: {
-    fontSize: 14,
-    color: "#666",
-  },
-});
