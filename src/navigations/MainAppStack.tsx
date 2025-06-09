@@ -2,12 +2,13 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainDrawerStack from "./MainDrawerStack";
 import NotificationScreen from "../components/notification/NotificationScreen";
-
+import AuthStack from "./AuthStack";
 
 const Stack = createNativeStackNavigator();
 
 const MainAppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="AuthStack" component={AuthStack} />
     <Stack.Screen name="MainDrawerStack" component={MainDrawerStack} />
     <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
   </Stack.Navigator>

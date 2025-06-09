@@ -1394,6 +1394,13 @@
   dependencies:
     color "^4.2.3"
 
+"@react-navigation/elements@^2.4.3":
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.4.3.tgz#cc1dde4c98739d35a0c9c23872316063962cfaee"
+  integrity sha512-psoNmnZ0DQIt9nxxPITVLtYW04PGCAfnmd/Pcd3yhiBs93aj+HYKH+SDZDpUnXMf3BN7Wvo4+jPI+/Xjqb+m9w==
+  dependencies:
+    color "^4.2.3"
+
 "@react-navigation/native-stack@^7.3.13":
   version "7.3.13"
   resolved "https://registry.yarnpkg.com/@react-navigation/native-stack/-/native-stack-7.3.13.tgz#b6962b71755f0ac8dd2f97a2c4229575a15a0cb1"
@@ -1419,6 +1426,14 @@
   integrity sha512-5ffgrefOs2zWqcCVX+OKn+RDx0puopQtxqetegFrTfWQ6pGXdY/5v4kBpPwaOFrNEeE/LPbHt9IJaJuvyhB7RA==
   dependencies:
     nanoid "^3.3.11"
+
+"@react-navigation/stack@^7.3.3":
+  version "7.3.3"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-7.3.3.tgz#e5c9e054fa7d3e224e659fc7b3e0da2773624f3c"
+  integrity sha512-TIUiQKSFYjVwRAT5pFn1jIk4aqPMgeh5eTXzsxgnAxrqrmE9E1o1XaZj+aeqBhTeBKxPTaRSjzsayD2/cue0mA==
+  dependencies:
+    "@react-navigation/elements" "^2.4.3"
+    color "^4.2.3"
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
