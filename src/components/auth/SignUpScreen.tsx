@@ -15,7 +15,8 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleSignUp = () => {
-    Alert.alert("Success", "Sign Up Successful!");
+    Alert.alert("Success", "Sign Up Successful! Now you can sign in.");
+    navigation.navigate("SignInScreen");
   };
 
   return (
@@ -31,11 +32,11 @@ const SignUpScreen = ({ navigation }) => {
 
       {/* Title Image */}
       <Image
-        source={require("./../../assets/Image/Profile.png")}
+        source={require("./../../assets/Image/signIn.jpg")}
         style={{
-          width: 120,
-          height: 120,
-          borderRadius: 60,
+          width: 150,
+          height: 150,
+          borderRadius: 75,
           alignSelf: "center",
           marginBottom: 30,
         }}
@@ -49,7 +50,7 @@ const SignUpScreen = ({ navigation }) => {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
-        placeholderTextColor="#888"
+        placeholderTextColor="#FF6F00"
         style={{
           height: 50,
           backgroundColor: "#FFFFFF",
@@ -57,7 +58,7 @@ const SignUpScreen = ({ navigation }) => {
           paddingHorizontal: 16,
           fontSize: 16,
           borderWidth: 1,
-          borderColor: "#D3D3D3",
+          borderColor: "#FF6F00",
           marginBottom: 16,
         }}
       />
@@ -68,7 +69,7 @@ const SignUpScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        placeholderTextColor="#888"
+        placeholderTextColor="#FF6F00"
         style={{
           height: 50,
           backgroundColor: "#FFFFFF",
@@ -76,7 +77,7 @@ const SignUpScreen = ({ navigation }) => {
           paddingHorizontal: 16,
           fontSize: 16,
           borderWidth: 1,
-          borderColor: "#D3D3D3",
+          borderColor: "#FF6F00",
           marginBottom: 16,
         }}
       />
@@ -87,7 +88,7 @@ const SignUpScreen = ({ navigation }) => {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
-        placeholderTextColor="#888"
+        placeholderTextColor="#FF6F00"
         style={{
           height: 50,
           backgroundColor: "#FFFFFF",
@@ -95,7 +96,7 @@ const SignUpScreen = ({ navigation }) => {
           paddingHorizontal: 16,
           fontSize: 16,
           borderWidth: 1,
-          borderColor: "#D3D3D3",
+          borderColor: "#FF6F00",
           marginBottom: 24,
         }}
       />
@@ -104,11 +105,11 @@ const SignUpScreen = ({ navigation }) => {
       <TouchableOpacity
         onPress={handleSignUp}
         style={{
-          backgroundColor: "#3B82F6",
+          backgroundColor: "#FF6F00",
           paddingVertical: 14,
           borderRadius: 10,
           alignItems: "center",
-          shadowColor: "#3B82F6",
+          shadowColor: "#FF6F00",
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.2,
           shadowRadius: 4,
@@ -145,7 +146,7 @@ const SignUpScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
           <Text
             style={{
-              color: "#3B82F6",
+              color: "#FF6F00",
               fontSize: 15,
               fontWeight: "600",
               textDecorationLine: "underline",
