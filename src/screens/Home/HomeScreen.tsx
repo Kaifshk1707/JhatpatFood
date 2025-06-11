@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import TypeWriter from "react-native-typewriter"; 
+import { foodItems } from "../../Data/foodItems";
 
 const categories = [
   { id: "1", icon: "hamburger", name: "Burger" },
@@ -9,35 +10,7 @@ const categories = [
   { id: "3", icon: "local-pizza", name: "Pizza" },
 ];
 
-const foodItems = [
-  {
-    id: "1",
-    title: "Ordinary Burgers",
-    image:
-      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=60",
-    rating: 4.9,
-    time: "10min",
-    price: "$17,230",
-  },
-  {
-    id: "2",
-    title: "Burger With Meat",
-    image:
-      "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=60",
-    rating: 4.8,
-    time: "11min",
-    price: "$17,230",
-  },
-  {
-    id: "3",
-    title: "Cheese Burger",
-    image:
-      "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=60",
-    rating: 4.7,
-    time: "12min",
-    price: "$17,230",
-  },
-];
+
 
 const HomeScreen = () => {
   return (
@@ -63,10 +36,10 @@ const HomeScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
             Find by Category
           </Text>
-          <Text style={{ color: "#FF6F00", fontSize: 14 }}>See All</Text>
+          <Text style={{ color: "#FF6F00", fontSize: 18 }}>See All</Text>
         </View>
 
         {/* Category List */}
