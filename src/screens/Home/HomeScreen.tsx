@@ -18,10 +18,12 @@ const HomeScreen = () => {
       <ScrollView style={{ flex: 1 }}>
         {/*Header Hero Text */}
         <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-          <Text style={{ fontSize: 22, color: "#333" }}>
+          <Text
+            style={{ fontSize: 22, color: "#333", fontFamily: "Exo2-Bold" }}
+          >
             <TypeWriter typing={1} maxDelay={120}>
               Provide the best{" "}
-              <Text style={{ fontWeight: "bold" }}>food for you</Text>
+              <Text style={{ fontFamily: "Exo2-Medium" }}>food for you</Text>
             </TypeWriter>
           </Text>
         </View>
@@ -36,14 +38,24 @@ const HomeScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+          <Text style={{ fontSize: 20, fontFamily: "Exo2-SemiBold" }}>
             Find by Category
           </Text>
-          <Text style={{ color: "#FF6F00", fontSize: 18 }}>See All</Text>
+          {/* <TouchableOpacity onPress={()=> {}}>
+            <Text
+              style={{
+                color: "#FF6F00",
+                fontSize: 18,
+                fontFamily: "Exo2-SemiBold",
+              }}
+            >
+              See All
+            </Text>
+          </TouchableOpacity> */}
         </View>
 
         {/* Category List */}
-        <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
+        {/* <View style={{ flexDirection: "row", paddingHorizontal: 20 }}>
           {categories.map((cat) => (
             <TouchableOpacity
               key={cat.id}
@@ -63,7 +75,7 @@ const HomeScreen = () => {
               )}
             </TouchableOpacity>
           ))}
-        </View>
+        </View> */}
 
         {/* Food Cards */}
         <View
@@ -107,8 +119,8 @@ const HomeScreen = () => {
               <Text
                 style={{
                   marginTop: 10,
-                  fontWeight: "bold",
-                  fontSize: 14,
+                  fontFamily: "Exo2-SemiBold",
+                  fontSize: 17,
                   color: "#333",
                 }}
               >
@@ -122,21 +134,36 @@ const HomeScreen = () => {
                 }}
               >
                 <Ionicons name="star" size={14} color="#FFD700" />
-                <Text style={{ marginLeft: 4, fontSize: 12, color: "#777" }}>
+                <Text
+                  style={{
+                    marginLeft: 4,
+                    fontSize: 14,
+                    color: "#777",
+                    fontFamily: "Exo2-SemiBold",
+                  }}
+                >
                   {item.rating}
                 </Text>
                 <Text
-                  style={{ marginHorizontal: 6, color: "#aaa", fontSize: 12 }}
+                  style={{ marginHorizontal: 6, color: "#aaa", fontSize: 14 }}
                 >
                   •
                 </Text>
-                <Text style={{ fontSize: 12, color: "#777" }}>{item.time}</Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#777",
+                    fontFamily: "Exo2-SemiBold",
+                  }}
+                >
+                  {item.time}
+                </Text>
               </View>
               <Text
                 style={{
                   marginTop: 6,
-                  fontSize: 14,
-                  fontWeight: "600",
+                  fontSize: 16,
+                  fontFamily: "Exo2-Bold",
                   color: "#FF6F00",
                 }}
               >

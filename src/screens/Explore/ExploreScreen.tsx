@@ -20,7 +20,7 @@ const ExploreScreen = ({ navigation }) => {
       <Text
         style={{
           fontSize: 22,
-          fontWeight: "bold",
+          fontFamily: "Exo2-Bold",
           color: "#FF6F00",
           marginBottom: 16,
         }}
@@ -33,10 +33,8 @@ const ExploreScreen = ({ navigation }) => {
           alignItems: "center",
           backgroundColor: "#EEE",
           borderRadius: 25,
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          // marginTop: 10,
-          marginBottom: 20,
+          paddingHorizontal: 15,
+          marginBottom: 15,
         }}
       >
         <Ionicons name="search" size={20} color="#999" />
@@ -47,6 +45,7 @@ const ExploreScreen = ({ navigation }) => {
             marginLeft: 10,
             color: "#333",
             fontSize: 20,
+            fontFamily: "Exo2-SemiBold",
           }}
           placeholderTextColor="#999"
           onChangeText={(text) => console.log("Search text:", text)}
@@ -67,6 +66,7 @@ const ExploreScreen = ({ navigation }) => {
             height: 120,
             borderRadius: 15,
             marginBottom: 16,
+
             justifyContent: "center",
             alignItems: "center",
             elevation: 3,
@@ -76,10 +76,10 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="pizza-outline" size={40} color="#FF7043" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
               color: "#FF7043",
+              fontFamily: "Exo2-SemiBold",
             }}
           >
             Pizza
@@ -102,9 +102,9 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="fast-food-outline" size={40} color="#FFA726" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Exo2-SemiBold",
               color: "#FFA726",
             }}
           >
@@ -128,9 +128,9 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="ice-cream-outline" size={40} color="#AB47BC" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Exo2-SemiBold",
               color: "#AB47BC",
             }}
           >
@@ -154,9 +154,9 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="wine-outline" size={40} color="#29B6F6" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Exo2-SemiBold",
               color: "#29B6F6",
             }}
           >
@@ -180,9 +180,9 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="fish-outline" size={40} color="#26A69A" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Exo2-SemiBold",
               color: "#26A69A",
             }}
           >
@@ -206,9 +206,9 @@ const ExploreScreen = ({ navigation }) => {
           <Ionicons name="restaurant-outline" size={40} color="#FFCA28" />
           <Text
             style={{
-              marginTop: 12,
+              marginTop: 5,
               fontSize: 18,
-              fontWeight: "600",
+              fontFamily: "Exo2-SemiBold",
               color: "#FFCA28",
             }}
           >
@@ -219,10 +219,11 @@ const ExploreScreen = ({ navigation }) => {
 
       <Text
         style={{
-          marginTop: 30,
+          marginTop: 20,
           color: "#555",
-          fontSize: 16,
+          fontSize: 17,
           textAlign: "center",
+          fontFamily: "Exo2-SemiBold",
         }}
       >
         Start exploring your favorite food and discover new delicious meals

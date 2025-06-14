@@ -57,6 +57,7 @@ const SignUpScreen = ({ navigation }) => {
           borderRadius: 10,
           paddingHorizontal: 16,
           fontSize: 16,
+          fontFamily: "Exo2-SemiBold",
           borderWidth: 1,
           borderColor: "#FF6F00",
           marginBottom: 16,
@@ -76,6 +77,7 @@ const SignUpScreen = ({ navigation }) => {
           borderRadius: 10,
           paddingHorizontal: 16,
           fontSize: 16,
+          fontFamily: "Exo2-SemiBold",
           borderWidth: 1,
           borderColor: "#FF6F00",
           marginBottom: 16,
@@ -95,6 +97,7 @@ const SignUpScreen = ({ navigation }) => {
           borderRadius: 10,
           paddingHorizontal: 16,
           fontSize: 16,
+          fontFamily: "Exo2-SemiBold",
           borderWidth: 1,
           borderColor: "#FF6F00",
           marginBottom: 24,
@@ -119,8 +122,8 @@ const SignUpScreen = ({ navigation }) => {
         <Text
           style={{
             color: "#FFFFFF",
-            fontSize: 17,
-            fontWeight: "600",
+            fontSize: 20,
+            fontFamily: "Exo2-Bold",
           }}
         >
           Sign Up
@@ -138,7 +141,8 @@ const SignUpScreen = ({ navigation }) => {
         <Text
           style={{
             color: "#333",
-            fontSize: 15,
+            fontSize: 16,
+            fontFamily: "Exo2-SemiBold",
           }}
         >
           Already have an account?{" "}
@@ -147,8 +151,8 @@ const SignUpScreen = ({ navigation }) => {
           <Text
             style={{
               color: "#FF6F00",
-              fontSize: 15,
-              fontWeight: "600",
+              fontSize: 18,
+              fontFamily: "Exo2-SemiBold",
               textDecorationLine: "underline",
             }}
           >

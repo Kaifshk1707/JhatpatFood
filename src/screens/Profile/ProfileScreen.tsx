@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   foodName: {
     fontSize: 26,
-    fontWeight: "bold",
+    fontFamily: "Exo2-Bold",
     color: "#FF6F00",
     marginBottom: 10,
   },
@@ -51,10 +51,11 @@ const styles = StyleSheet.create({
     color: "#555",
     lineHeight: 22,
     marginBottom: 20,
+    fontFamily: "Exo2-Medium",
   },
   foodPrice: {
     fontSize: 22,
-    fontWeight: "600",
+    fontFamily: "Exo2-SemiBold",
     color: "#388E3C",
     marginBottom: 30,
   },
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily: "Exo2-Bold",
   },
 });
  

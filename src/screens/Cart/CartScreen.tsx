@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "Exo2-Bold",
     color: "#FF6F00",
     marginBottom: 20,
   },
@@ -93,17 +93,18 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 18,
-    fontWeight: "600",
     color: "#333",
+    fontFamily: "Exo2-SemiBold",
   },
   itemQuantity: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#666",
     marginTop: 4,
+    fontFamily: "Exo2-SemiBold",
   },
   itemPrice: {
     fontSize: 18,
-    fontWeight: "600",
+     fontFamily:"Exo2-SemiBold",
     color: "#388E3C",
     alignSelf: "center",
   },
@@ -117,12 +118,12 @@ const styles = StyleSheet.create({
   },
   totalText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Exo2-Bold",
     color: "#222",
   },
   totalAmount: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Exo2-SemiBold",
     color: "#FF6F00",
   },
   checkoutButton: {
