@@ -10,9 +10,9 @@ import {
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import auth from "@react-native-firebase/auth";
 
 const SignUpScreen = ({ navigation }) => {
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accepted, setAccepted] = useState(false);
@@ -20,8 +20,15 @@ const SignUpScreen = ({ navigation }) => {
   const toggleCheckbox = () => setAccepted(!accepted);
 
   const handleSignUp = () => {
-    Alert.alert("Success", "Sign Up Successful! Now you can sign in.");
-    navigation.navigate("SignInScreen");
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.alert("Success", "Sign Up Successful! Now you can sign in.");
+        navigation.navigate("SignInScreen");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.nativeErrorMessage || "Sign Up Failed");
+      });
   };
 
   return (
@@ -105,36 +112,6 @@ const SignUpScreen = ({ navigation }) => {
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
-        placeholderTextColor="#FF6F00"
-        style={{
-          height: 50,
-          backgroundColor: "#FFFFFF",
-          borderRadius: 10,
-          paddingHorizontal: 16,
-          fontSize: 16,
-          fontFamily: "Exo2-SemiBold",
-          borderWidth: 1,
-          borderColor: "#FF6F00",
-          marginBottom: 8,
-        }}
-      />
-
-      {/* Confirm Password Input */}
-      <Text
-        style={{
-          color: "#212121",
-          fontFamily: "Exo2-Medium",
-          fontSize: 16,
-          marginBottom: 8,
-        }}
-      >
-        Confirm Password
-      </Text>
-      <TextInput
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
         secureTextEntry
         placeholderTextColor="#FF6F00"
         style={{

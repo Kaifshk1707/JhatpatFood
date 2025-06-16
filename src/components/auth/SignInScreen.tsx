@@ -9,6 +9,8 @@ import {
 import React, { useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import auth from "@react-native-firebase/auth";
+
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -16,8 +18,15 @@ const SignInScreen = ({ navigation }) => {
   const [secureText, setSecureText] = useState(true);
 
   const handleSignIn = () => {
-    Alert.alert("Sign In", "You have successfully signed in!");
-    navigation.navigate("MainDrawerStack");
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.alert("Welcome!", "You've successfully signed in 🎉");
+        navigation.navigate("MainDrawerStack");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.nativeErrorMessage || "Sign In Failed");
+      });
   };
 
   return (
