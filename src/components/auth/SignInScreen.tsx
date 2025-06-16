@@ -29,8 +29,6 @@ const SignInScreen = ({ navigation }) => {
         justifyContent: "center",
       }}
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#F5F5F5" />
-
       {/* Heading Section */}
       <View style={{ marginBottom: 30 }}>
         <Text
@@ -57,6 +55,16 @@ const SignInScreen = ({ navigation }) => {
       </View>
 
       {/* Email Input */}
+      <Text
+        style={{
+          color: "#212121",
+          fontFamily: "Exo2-Medium",
+          fontSize: 16,
+          marginBottom: 8,
+        }}
+      >
+        Email Address
+      </Text>
       <TextInput
         placeholder="Email Address"
         value={email}
@@ -85,6 +93,16 @@ const SignInScreen = ({ navigation }) => {
           marginBottom: 10,
         }}
       >
+        <Text
+          style={{
+            color: "#212121",
+            fontFamily: "Exo2-Medium",
+            fontSize: 16,
+            marginBottom: 8,
+          }}
+        >
+          Password
+        </Text>
         <TextInput
           placeholder="Password"
           value={password}
@@ -108,7 +126,7 @@ const SignInScreen = ({ navigation }) => {
           style={{
             position: "absolute",
             right: 15,
-            top: 13,
+            top: 43,
           }}
         >
           <Entypo
@@ -126,7 +144,7 @@ const SignInScreen = ({ navigation }) => {
 
       {/* Forgot Password */}
       <TouchableOpacity
-        onPress={() => Alert.alert("Forgot Password", "Reset link sent")}
+        onPress={() => navigation.navigate("ForgotScreen")}
         style={{ alignItems: "flex-end", marginBottom: 24 }}
       >
         <Text
@@ -202,7 +220,7 @@ const SignInScreen = ({ navigation }) => {
         style={{
           flexDirection: "column",
           alignItems: "center",
-          marginTop: 20,
+          marginTop: 10,
         }}
       >
         {/* Google Sign In */}
@@ -231,7 +249,6 @@ const SignInScreen = ({ navigation }) => {
             Continue with Google
           </Text>
         </TouchableOpacity>
-       
       </View>
 
       {/* Sign Up Redirect */}
@@ -239,7 +256,7 @@ const SignInScreen = ({ navigation }) => {
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          marginTop: 30,
+          marginTop: 10,
         }}
       >
         <Text
@@ -270,8 +287,8 @@ const SignInScreen = ({ navigation }) => {
 
 export default SignInScreen;
 
-
-{/* <View
+{
+  /* <View
   style={{
     flexDirection: "row",
     justifyContent: "space-between",
@@ -303,4 +320,5 @@ export default SignInScreen;
   >
     <Entypo name="facebook" size={35} color="#4267B2" />
   </TouchableOpacity>
-</View>; */}
+</View>; */
+}
