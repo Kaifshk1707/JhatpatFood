@@ -87,7 +87,7 @@ const HomeScreen = () => {
             paddingTop: 20,
             paddingBottom: 60,
           }}
-        >
+        > 
           {foodItems.map((item) => (
             <View
               key={item.id}
