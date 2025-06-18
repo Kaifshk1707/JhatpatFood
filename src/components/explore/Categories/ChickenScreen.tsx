@@ -11,10 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
-const DessertsScreen = () => {
-  const url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert";
+const ChickenScreen = () => {
+  const url =
+    "https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast";
   const navigation = useNavigation();
-  const [dessertItems, setDessertItems] = useState([]);
+  const [chickenItems, setChickenItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getFoodItems = async () => {
@@ -27,7 +28,7 @@ const DessertsScreen = () => {
         name: meal.strMeal,
         image: meal.strMealThumb,
       }));
-      setDessertItems(formatted);
+      setChickenItems(formatted);
       // console.log(
       //   "Chicken items fetched successfully:",
       //   JSON.stringify(formatted, null, 2)
@@ -49,46 +50,46 @@ const DessertsScreen = () => {
         onPress={() => navigation.goBack()}
         style={{
           marginBottom: 10,
-          backgroundColor: "#F3E5F5",
+          backgroundColor: "#FFF3E0",
           padding: 10,
           borderRadius: 5,
           alignSelf: "flex-start",
           marginTop: 30,
         }}
       >
-        <Ionicons name="arrow-back" size={24} color="#AB47BC" />
+        <Ionicons name="arrow-back" size={24} color="#D84315" />
       </TouchableOpacity>
 
       <Text
         style={{
           fontSize: 24,
           fontWeight: "bold",
-          color: "#AB47BC",
+          color: "#D84315",
           marginBottom: 10,
         }}
       >
-        🍰 Dessert Dishes
+        🍗 Chicken Dishes
       </Text>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
         {loading ? (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              height: 700,
-            }}
-          >
-            <ActivityIndicator size={50} color="#AB47BC" />
-          </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            height: 700,
+          }}
+        >
+          <ActivityIndicator size={50} color="#D84315" />
+        </View>
         ) : (
-          dessertItems.map((item) => (
+          chickenItems.map((item) => (
             <View
               key={item.id}
               style={{
                 marginBottom: 20,
-                backgroundColor: "#F3E5F5",
+                backgroundColor: "#FFF3E0",
                 borderRadius: 16,
                 overflow: "hidden",
                 elevation: 3,
@@ -106,7 +107,7 @@ const DessertsScreen = () => {
                   style={{
                     fontSize: 20,
                     fontWeight: "bold",
-                    color: "#AB47BC",
+                    color: "#D84315",
                     marginBottom: 10,
                   }}
                 >
@@ -121,5 +122,4 @@ const DessertsScreen = () => {
   );
 };
 
-export default DessertsScreen;
-
+export default ChickenScreen;

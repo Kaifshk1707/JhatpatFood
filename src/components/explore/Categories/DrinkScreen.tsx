@@ -1,50 +1,40 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-
-// Drink items data
-const drinks = [
-  {
-    name: "Lemonade",
-    description: "Fresh and tangy lemonade served chilled with mint.",
-    image: require("./../../../assets/Image/lemonade.jpeg"),
-  },
-  {
-    name: "Cold Coffee",
-    description: "Iced coffee with whipped cream and chocolate drizzle.",
-    image: require("./../../../assets/Image/cold_coffee.jpeg"),
-  },
-  {
-    name: "Mango Smoothie",
-    description: "Creamy mango smoothie topped with chia seeds.",
-    image: require("./../../../assets/Image/mango_smoothie.jpeg"),
-  },
-  {
-    name: "Iced Tea",
-    description: "Classic iced tea with lemon and honey flavors.",
-    image: require("./../../../assets/Image/iced_tea.jpeg"),
-  },
-];
+import axios from "axios";
 
 const DrinkScreen = () => {
   const navigation = useNavigation();
-  const [cartCounts, setCartCounts] = useState(Array(drinks.length).fill(0));
 
-  const addToCart = (index) => {
-    const updated = [...cartCounts];
-    updated[index]++;
-    setCartCounts(updated);
+  const url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vodka";
+  const [drinkItems, setDrinkItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getFoodItems = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(url);
+      // API returns meals as idMeal, strMeal, strMealThumb
+      const formatted = response.data.drinks.map((drink) => ({
+        id: drink.idDrink,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb,
+      }));
+      setDrinkItems(formatted);
+    } catch (error) {
+      console.error("Error fetching drink items:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const removeFromCart = (index) => {
-    const updated = [...cartCounts];
-    if (updated[index] > 0) updated[index]--;
-    setCartCounts(updated);
-  };
+  useEffect(() => {
+    getFoodItems();
+  }, []);
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#fff", padding: 16 }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", padding: 16 }}>
       <View
         style={{
           marginBottom: 20,
@@ -69,80 +59,48 @@ const DrinkScreen = () => {
       >
         🥤 Refreshing Drinks
       </Text>
-
-      {drinks.map((item, index) => (
-        <View
-          key={index}
-          style={{
-            marginBottom: 20,
-            backgroundColor: "#E3F2FD",
-            borderRadius: 16,
-            elevation: 4,
-            overflow: "hidden",
-          }}
-        >
-          <Image
-            source={item.image}
-            style={{
-              width: "100%",
-              height: 180,
-              resizeMode: "cover",
-              borderTopLeftRadius: 16,
-              borderTopRightRadius: 16,
-            }}
-          />
-          <View style={{ padding: 16 }}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                color: "#01579B",
-                marginBottom: 6,
-              }}
-            >
-              {item.name}
-            </Text>
-            <Text style={{ fontSize: 14, color: "#555", marginBottom: 16 }}>
-              {item.description}
-            </Text>
-
+      <ScrollView
+        showsVerticalScrollIndicator={false}>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0288D1" />
+        ) : (
+          drinkItems.map((item) => (
             <View
+              key={item.id}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                marginBottom: 24,
+                backgroundColor: "#E3F2FD",
+                borderRadius: 16,
+                overflow: "hidden",
               }}
             >
-              <TouchableOpacity
-                onPress={() => removeFromCart(index)}
+              <Image
+                source={{ uri: item.image }}
                 style={{
-                  backgroundColor: "#81D4FA",
-                  padding: 8,
-                  borderRadius: 30,
+                  width: "100%",
+                  height: 200,
+                  borderTopLeftRadius: 16,
+                  borderTopRightRadius: 16,
+                  resizeMode: "cover", 
                 }}
-              >
-                <Ionicons name="remove" size={20} color="#fff" />
-              </TouchableOpacity>
-
-              <Text style={{ fontSize: 16, fontWeight: "bold", color: "#333" }}>
-                {cartCounts[index]}
-              </Text>
-
-              <TouchableOpacity
-                onPress={() => addToCart(index)}
-                style={{
-                  backgroundColor: "#29B6F6",
-                  padding: 8,
-                  borderRadius: 30,
-                }}
-              >
-                <Ionicons name="add" size={20} color="#fff" />
-              </TouchableOpacity>
+              />
+              <View style={{ padding: 16 }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "#0288D1",
+                    marginBottom: 10,
+                  }}
+                >
+                  {item.name}
+                </Text>
+              </View>
             </View>
-          </View>
-        </View>
-      ))}
-    </ScrollView>
+          ))
+        )}
+      </ScrollView>
+    </View>
   );
 };
 

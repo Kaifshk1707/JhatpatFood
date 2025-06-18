@@ -7,6 +7,8 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 
 const ExploreScreen = ({ navigation }) => {
   return (
@@ -60,7 +62,7 @@ const ExploreScreen = ({ navigation }) => {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate("PizzaScreen")}
+          onPress={() => navigation.navigate("ChickenScreen")}
           style={{
             width: "48%",
             height: 120,
@@ -73,7 +75,11 @@ const ExploreScreen = ({ navigation }) => {
             backgroundColor: "#FF704320",
           }}
         >
-          <Ionicons name="pizza-outline" size={40} color="#FF7043" />
+          <MaterialCommunityIcons
+            name="food-turkey"
+            size={40}
+            color="#FF7043"
+          />
           <Text
             style={{
               marginTop: 5,
@@ -82,7 +88,7 @@ const ExploreScreen = ({ navigation }) => {
               fontFamily: "Exo2-SemiBold",
             }}
           >
-            Pizza
+            Chicken
           </Text>
         </TouchableOpacity>
 
