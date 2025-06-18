@@ -29,7 +29,7 @@ const ExploreScreen = ({ navigation }) => {
       >
         Explore Categories
       </Text>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -52,7 +52,7 @@ const ExploreScreen = ({ navigation }) => {
           placeholderTextColor="#999"
           onChangeText={(text) => console.log("Search text:", text)}
         />
-      </View>
+      </View> */}
 
       <View
         style={{
