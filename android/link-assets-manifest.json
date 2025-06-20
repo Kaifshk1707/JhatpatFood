@@ -1,0 +1,77 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Exo2-Black.ttf",
+      "sha1": "e1afcb6b70759eb4a22235f0cbd4a1d6878adc04"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-BlackItalic.ttf",
+      "sha1": "9ade6f0536c200e57ef1275fa515da7f0f4b1b89"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Bold.ttf",
+      "sha1": "54f0d98fb497f137844562c0498315d3afdb08ae"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-BoldItalic.ttf",
+      "sha1": "c482f81e536b7f6eab5ae99621da0a0a6a7e1d65"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-ExtraBold.ttf",
+      "sha1": "095b02e791c348cc726ca4d471d1af772b5605d2"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-ExtraBoldItalic.ttf",
+      "sha1": "50261871f8460743d0f525f9d6408bfcbdccf9e9"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-ExtraLight.ttf",
+      "sha1": "f9be9af694b573cb8519432b969fa23cf03e2101"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-ExtraLightItalic.ttf",
+      "sha1": "d3f32a6e838bb46a63915983224b32f6b27100ea"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Italic.ttf",
+      "sha1": "2130aba764695c9f38e44685f748f470ad732e96"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Light.ttf",
+      "sha1": "7e062a12039509259c649dd339ce5810d58cf99e"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-LightItalic.ttf",
+      "sha1": "00f6c466198cb92968c70d8e9ec7b6893e7c78f8"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Medium.ttf",
+      "sha1": "37fe460576ccbfd3231b47c80ca2250cda4af097"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-MediumItalic.ttf",
+      "sha1": "f30a8f3268a9cc8708e86b929e4b9f8416cbb28c"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Regular.ttf",
+      "sha1": "565acdf5811c71ba0164cc0d33244d4f852db6af"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-SemiBold.ttf",
+      "sha1": "e9c324efbd91478b280c406daf0e30029bf411f7"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-SemiBoldItalic.ttf",
+      "sha1": "eed97b18c5ee7d37bf3f25fc6ae14ebb5505efdf"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-Thin.ttf",
+      "sha1": "fad55b36934dade413c5a6bb36457298d1db26f7"
+    },
+    {
+      "path": "src/assets/fonts/Exo2-ThinItalic.ttf",
+      "sha1": "cfa2d6304933a95a7b526ef3ca7dc459a0879e72"
+    }
+  ]
+}

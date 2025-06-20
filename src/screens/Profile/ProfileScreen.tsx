@@ -1,73 +1,141 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreen = () => {
-  // Sample data, you can replace this with props or API data
-  const food = {
-    name: "Margherita Pizza",
-    description:
-      "Classic delight with 100% real mozzarella cheese, fresh tomato sauce, and basil leaves. Perfectly baked to perfection.",
-    price: 8.99,
-    image:
-      "https://images.unsplash.com/photo-1601924582971-4a9d3a80e8f9?auto=format&fit=crop&w=800&q=80",
+  const user = {
+    name: "Shaikh Kaif",
+    email: "kaif@jhatpatfood.com",
+    address: "Mumbai, India",
+    profileImage: require("./../../assets/Image/Profile picture.png"),
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: food.image }} style={styles.foodImage} />
-      <Text style={styles.foodName}>{food.name}</Text>
-      <Text style={styles.foodDescription}>{food.description}</Text>
-      <Text style={styles.foodPrice}>${food.price.toFixed(2)}</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* App Branding */}
+      <View style={styles.header}>
+        <Ionicons name="fast-food-outline" size={60} color="#FF6F00" />
+        <Text style={styles.appName}>JhatpatFood</Text>
+        <Text style={styles.tagline}>
+          Fast, Fresh & Delivered at Your Doorstep
+        </Text>
+      </View>
 
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}>Add to Cart</Text>
-      </TouchableOpacity>
-    </View>
+      {/* Profile Info */}
+      <View style={styles.profileCard}>
+        <Image source={user.profileImage} style={styles.avatar} />
+        <Text style={styles.name}>{user.name}</Text>
+        <Text style={styles.email}>{user.email}</Text>
+        <Text style={styles.address}>{user.address}</Text>
+      </View>
+
+      {/* Profile Options */}
+      <View style={styles.menuCard}>
+        <ProfileOption icon="cart-outline" title="My Orders" />
+        <ProfileOption icon="star-outline" title="Favourites" />
+        <ProfileOption icon="location-outline" title="Saved Addresses" />
+        <ProfileOption icon="settings-outline" title="Account Settings" />
+        {/* <ProfileOption
+          icon="information-circle-outline"
+          title="About JhatpatFood"
+        /> */}
+        {/* <ProfileOption icon="call-outline" title="Contact Support" /> */}
+        <ProfileOption icon="log-out-outline" title="Logout" />
+      </View>
+    </ScrollView>
   );
 };
+
+const ProfileOption = ({ icon, title }) => (
+  <TouchableOpacity style={styles.option}>
+    <Ionicons name={icon} size={22} color="#FF6F00" />
+    <Text style={styles.optionText}>{title}</Text>
+    <Ionicons
+      name="chevron-forward-outline"
+      size={20}
+      color="#999"
+      style={{ marginLeft: "auto" }}
+    />
+  </TouchableOpacity>
+);
 
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFF8F0",
   },
-  foodImage: {
-    width: "100%",
-    height: 250,
-    borderRadius: 15,
+  header: {
+    alignItems: "center",
     marginBottom: 20,
   },
-  foodName: {
+  appName: {
     fontSize: 26,
     fontWeight: "bold",
     color: "#FF6F00",
-    marginBottom: 10,
+    marginTop: 6,
   },
-  foodDescription: {
-    fontSize: 16,
-    color: "#555",
-    lineHeight: 22,
-    marginBottom: 20,
+  tagline: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginTop: 2,
   },
-  foodPrice: {
-    fontSize: 22,
-    fontWeight: "600",
-    color: "#388E3C",
-    marginBottom: 30,
-  },
-  addButton: {
-    backgroundColor: "#FF6F00",
-    paddingVertical: 15,
-    borderRadius: 30,
+  profileCard: {
     alignItems: "center",
+    marginBottom: 30,
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 20,
+    elevation: 3,
   },
-  addButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "700",
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 60,
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: "#FF6F00",
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  email: {
+    fontSize: 14,
+    color: "#777",
+    marginTop: 4,
+  },
+  address: {
+    fontSize: 14,
+    color: "#555",
+    marginTop: 2,
+  },
+  menuCard: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    elevation: 2,
+    paddingVertical: 4,
+  },
+  option: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderBottomColor: "#eee",
+    borderBottomWidth: 1,
+  },
+  optionText: {
+    fontSize: 16,
+    color: "#333",
+    marginLeft: 12,
   },
 });
- 

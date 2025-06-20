@@ -4,11 +4,14 @@ import MainBottomTab from "./MainBottomTab";
 import AboutUs from "../components/home/DrawerScreen/AboutUs";
 import Settings from "../components/home/DrawerScreen/Settings";
 import { Ionicons } from "@expo/vector-icons";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/Store";
 
 const Drawer = createDrawerNavigator();
 
 const MainDrawerStack = ({navigation}) => {
+  const { value } = useSelector((state: RootState) => state.counterSlice);
   return (
     <Drawer.Navigator
       initialRouteName="JhatpatFood"
@@ -43,25 +46,46 @@ const MainDrawerStack = ({navigation}) => {
             <Ionicons name="home" size={size} color={color} />
           ),
           headerRight: () => (
-            <Ionicons
-              name="notifications-outline"
-              size={22}
-              color="#fff"
-              style={{ marginRight: 15 }}
-              onPress={() => {
-                console.log("Notifications Pressed");
-                navigation.navigate("NotificationScreen");
-              }}
-            />
-            // <View style={{ flexDirection: "row", alignItems: "center" }}>
-            //   <Ionicons
-            //     name="search"
-            //     size={22}
-            //     color="#333"
-            //     style={{ marginRight: 12 }}
-            //   />
-            //   <Ionicons name="notifications-outline" size={22} color="#333" />
-            // </View>
+            <View style={{ marginRight: 15, flexDirection: "row", alignItems: "center", padding: 10 }}>
+              <Ionicons
+                name="notifications-outline"
+                size={32}
+                color="#fff"
+                onPress={() => {
+                  navigation.navigate("NotificationScreen");
+                }}
+              />
+              <Ionicons
+                name="cart-outline"
+                size={32}
+                color="#fff"
+                // onPress={() => {
+                //   navigation.navigate("CartScreen");
+                // }}
+              />
+              {value > 0 && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: -4,
+                    right: -6,
+                    backgroundColor: "red",
+                    borderRadius: 10,
+                    minWidth: 24,
+                    height: 24,
+                    paddingHorizontal: 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}
+                  >
+                    {value > 99 ? "99+" : value}
+                  </Text>
+                </View>
+              )}
+            </View>
           ),
         }}
       />
