@@ -6,9 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/Store";
 
 const CartScreen = () => {
-  // Sample cart data
+  const { value } = useSelector((state: RootState) => state.counterSlice);
+
   const [cartItems, setCartItems] = useState([
     { id: "1", name: "Margherita Pizza", quantity: 2, price: 8.99 },
     { id: "2", name: "Veggie Burger", quantity: 1, price: 6.5 },
@@ -35,7 +38,10 @@ const CartScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Cart</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={styles.title}>Your Cart</Text>
+        <Text style={styles.title}>{value}</Text>
+      </View>
 
       {cartItems.length === 0 ? (
         <Text style={styles.emptyText}>Your cart is empty.</Text>
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: "Exo2-Bold",
     color: "#FF6F00",
     marginBottom: 20,
   },
@@ -93,17 +99,18 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 18,
-    fontWeight: "600",
     color: "#333",
+    fontFamily: "Exo2-SemiBold",
   },
   itemQuantity: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#666",
     marginTop: 4,
+    fontFamily: "Exo2-SemiBold",
   },
   itemPrice: {
     fontSize: 18,
-    fontWeight: "600",
+     fontFamily:"Exo2-SemiBold",
     color: "#388E3C",
     alignSelf: "center",
   },
@@ -117,12 +124,12 @@ const styles = StyleSheet.create({
   },
   totalText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Exo2-Bold",
     color: "#222",
   },
   totalAmount: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Exo2-SemiBold",
     color: "#FF6F00",
   },
   checkoutButton: {

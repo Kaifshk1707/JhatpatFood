@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433814170988",
+    "project_id": "jhatpat-food",
+    "storage_bucket": "jhatpat-food.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433814170988:android:afde20cd3a9c07577fd749",
+        "android_client_info": {
+          "package_name": "com.kaifshk17.JhatpatFood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC04kRl1Qg_rRgPxk7tFpk6B-q2YrEb_PA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

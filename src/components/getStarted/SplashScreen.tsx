@@ -18,7 +18,7 @@ const SplashScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 28,
-            fontWeight: "bold",
+            fontFamily: "Exo2-SemiBold",
             color: "#FF6F00",
             marginBottom: 8,
           }}
@@ -27,9 +27,10 @@ const SplashScreen = ({ navigation }) => {
         </Text>
         <Text
           style={{
-            fontSize: 16,
-            fontWeight: "700",
-            color: "#FFA040",
+            fontSize: 18,
+            fontFamily: "Exo2-Light",
+            lineHeight: 24,
+            color: "#FF6F00",
           }}
         >
           Your favorite food delivery app
@@ -83,7 +84,14 @@ const SplashScreen = ({ navigation }) => {
           }}
           onPress={() => navigation.navigate("SignInScreen")}
         >
-          <Text style={{ color: "#fff", fontSize: 18, fontWeight: "600" }}>
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 20,
+              fontFamily: "Exo2-Bold",
+              // fontWeight: "900",
+            }}
+          >
             Let’s Start
           </Text>
         </TouchableOpacity>
