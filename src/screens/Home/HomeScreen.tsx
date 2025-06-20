@@ -10,11 +10,26 @@ import {
 import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import TypeWriter from "react-native-typewriter";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/Store";
+import { counterSlice, decrement, increment } from "../../redux/CounterSlice";
 
+
+type FoodItem = {
+  idCategory: string;
+  strCategory: string;
+  strCategoryThumb: string;
+  strCategoryDescription: string;
+};
 
 const HomeScreen = () => {
-  const [food, setFood] = useState([]);
+  const [food, setFood] = useState<FoodItem[]>([]);
+  const [likedItems, setLikedItems] = useState<{ [key: string]: boolean }>({});
+
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
   const url = "https://www.themealdb.com/api/json/v1/1/categories.php";
 
   const getFoodItems = async () => {
@@ -27,6 +42,22 @@ const HomeScreen = () => {
       setLoading(false);
     }
   };
+
+  const handlePress = (id: string) => {
+    const isLiked = likedItems[id];
+
+    if (isLiked) {
+      dispatch(decrement());
+    } else {
+      dispatch(increment());
+    }
+
+    setLikedItems((prev) => ({
+      ...prev,
+      [id]: !isLiked,
+    }));
+  };
+  
 
   useEffect(() => {
     getFoodItems();
@@ -92,7 +123,9 @@ const HomeScreen = () => {
                   source={{ uri: item.strCategoryThumb }}
                   style={{ width: "100%", height: 100, borderRadius: 12 }}
                 />
+                
                 <TouchableOpacity
+                  onPress={() => handlePress(item.idCategory)}
                   style={{
                     position: "absolute",
                     top: 12,
@@ -102,8 +135,15 @@ const HomeScreen = () => {
                     borderRadius: 20,
                   }}
                 >
-                  <Ionicons name="heart-outline" size={18} color="#FF6F00" />
+                  <Ionicons
+                    name={
+                      likedItems[item.idCategory] ? "heart" : "heart-outline"
+                    }
+                    size={18}
+                    color="#FF6F00"
+                  />
                 </TouchableOpacity>
+
                 <Text
                   style={{
                     marginTop: 10,
@@ -113,6 +153,7 @@ const HomeScreen = () => {
                   }}
                 >
                   {item.strCategory}
+                  
                 </Text>
                 <Text
                   numberOfLines={3}

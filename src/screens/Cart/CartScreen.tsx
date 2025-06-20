@@ -6,9 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/Store";
 
 const CartScreen = () => {
-  // Sample cart data
+  const { value } = useSelector((state: RootState) => state.counterSlice);
+
   const [cartItems, setCartItems] = useState([
     { id: "1", name: "Margherita Pizza", quantity: 2, price: 8.99 },
     { id: "2", name: "Veggie Burger", quantity: 1, price: 6.5 },
@@ -35,7 +38,10 @@ const CartScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Cart</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={styles.title}>Your Cart</Text>
+        <Text style={styles.title}>{value}</Text>
+      </View>
 
       {cartItems.length === 0 ? (
         <Text style={styles.emptyText}>Your cart is empty.</Text>
