@@ -3,8 +3,8 @@ import { counterSlice } from "./CounterSlice";
 import { foodSlice } from "./FoodSlice";
 export const store = configureStore({
   reducer: {
-    counterSlice: counterSlice.reducer, 
-    foodSlice: foodSlice.reducer, 
+    counterSlice: counterSlice.reducer,
+    foodSlice: foodSlice.reducer,
   },
 });
 
