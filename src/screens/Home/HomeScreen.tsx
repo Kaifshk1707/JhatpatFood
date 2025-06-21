@@ -13,7 +13,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/Store";
 import { counterSlice, decrement, increment } from "../../redux/CounterSlice";
-
+import { getFood } from "../../redux/FoodAction";
 
 type FoodItem = {
   idCategory: string;
@@ -27,6 +27,11 @@ const HomeScreen = () => {
   const [likedItems, setLikedItems] = useState<{ [key: string]: boolean }>({});
 
   const [loading, setLoading] = useState(true);
+
+  // const foods = useSelector(
+  //   (state: RootState) => state.foodSlice.foods)
+  //   console.log("Food items from Redux:", foods);
+    
 
   const dispatch = useDispatch();
 
@@ -57,11 +62,15 @@ const HomeScreen = () => {
       [id]: !isLiked,
     }));
   };
-  
 
   useEffect(() => {
     getFoodItems();
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(getFood());
+  // }, [dispatch]);
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -77,6 +86,16 @@ const HomeScreen = () => {
             </TypeWriter>
           </Text>
         </View>
+
+        {/* <View>
+          {foods.map((item, index) => (
+            <View key={index}>
+              <Text>{item.strCategory}</Text>
+              <Text>{item.strCategoryThumb}</Text>
+              <Text>{item.strCategoryDescription}</Text>
+            </View>
+          ))}
+        </View> */}
 
         {/* Category Row */}
         <View
@@ -123,7 +142,7 @@ const HomeScreen = () => {
                   source={{ uri: item.strCategoryThumb }}
                   style={{ width: "100%", height: 100, borderRadius: 12 }}
                 />
-                
+
                 <TouchableOpacity
                   onPress={() => handlePress(item.idCategory)}
                   style={{
@@ -153,7 +172,6 @@ const HomeScreen = () => {
                   }}
                 >
                   {item.strCategory}
-                  
                 </Text>
                 <Text
                   numberOfLines={3}
