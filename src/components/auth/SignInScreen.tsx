@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import auth from "@react-native-firebase/auth";
+import { showMessage } from "react-native-flash-message";
+
 
 
 const SignInScreen = ({ navigation }) => {
@@ -17,17 +19,49 @@ const SignInScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
 
+  // const handleSignIn = () => {
+  //   auth()
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(() => {
+  //       Alert.alert("Welcome!", "You've successfully signed in 🎉");
+  //       navigation.navigate("MainDrawerStack");
+  //     })
+  //     .catch((error) => {
+  //       Alert.alert("Error", error.nativeErrorMessage || "Sign In Failed");
+  //     });
+  // };
+
   const handleSignIn = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        Alert.alert("Welcome!", "You've successfully signed in 🎉");
+        showMessage({
+          message: "Success",
+          description: "You have successfully signed in to your account.",
+          type: "success",
+          icon: "success",
+          backgroundColor: "#FF6F00",
+          color: "#fff",
+          duration: 3000,
+        });
+        
         navigation.navigate("MainDrawerStack");
       })
       .catch((error) => {
-        Alert.alert("Error", error.nativeErrorMessage || "Sign In Failed");
+        showMessage({
+          message: "⚠️ Sign-in Failed!",
+          description:
+            error.nativeErrorMessage ||
+            "Please check your credentials and try again.",
+          type: "danger",
+          icon: "danger",
+          backgroundColor: "#F44336", // red
+          color: "#fff",
+        });
+        
       });
   };
+  
 
   return (
     <View
