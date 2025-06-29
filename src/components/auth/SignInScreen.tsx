@@ -12,24 +12,10 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import auth from "@react-native-firebase/auth";
 import { showMessage } from "react-native-flash-message";
 
-
-
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
-
-  // const handleSignIn = () => {
-  //   auth()
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       Alert.alert("Welcome!", "You've successfully signed in 🎉");
-  //       navigation.navigate("MainDrawerStack");
-  //     })
-  //     .catch((error) => {
-  //       Alert.alert("Error", error.nativeErrorMessage || "Sign In Failed");
-  //     });
-  // };
 
   const handleSignIn = () => {
     auth()
@@ -44,7 +30,7 @@ const SignInScreen = ({ navigation }) => {
           color: "#fff",
           duration: 3000,
         });
-        
+
         navigation.navigate("MainDrawerStack");
       })
       .catch((error) => {
@@ -58,10 +44,8 @@ const SignInScreen = ({ navigation }) => {
           backgroundColor: "#F44336", // red
           color: "#fff",
         });
-        
       });
   };
-  
 
   return (
     <View
