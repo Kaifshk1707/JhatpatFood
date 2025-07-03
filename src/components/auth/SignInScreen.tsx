@@ -1,47 +1,42 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StatusBar,
-  Alert,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import auth from "@react-native-firebase/auth";
 import { showMessage } from "react-native-flash-message";
+import { useTranslation } from "react-i18next";
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
 
+  const { t } = useTranslation();
+
   const handleSignIn = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         showMessage({
-          message: "Success",
-          description: "You have successfully signed in to your account.",
+          message: t("success"),
+          description: t("you_have_successfully_signed_in_to_your_account"),
           type: "success",
           icon: "success",
           backgroundColor: "#FF6F00",
           color: "#fff",
           duration: 3000,
         });
-
         navigation.navigate("MainDrawerStack");
       })
       .catch((error) => {
         showMessage({
-          message: "⚠️ Sign-in Failed!",
+          message: t("sign_in_failed"),
           description:
             error.nativeErrorMessage ||
-            "Please check your credentials and try again.",
+            t("please_check_your_credentials_and_try_again"),
           type: "danger",
           icon: "danger",
-          backgroundColor: "#F44336", // red
+          backgroundColor: "#F44336",
           color: "#fff",
         });
       });
@@ -63,21 +58,15 @@ const SignInScreen = ({ navigation }) => {
             fontSize: 43,
             color: "#333",
             fontFamily: "Exo2-Bold",
-            textAlign: "left",
             marginBottom: 10,
           }}
         >
-          Login to your account
+          {t("login_to_your_account")}
         </Text>
         <Text
-          style={{
-            fontSize: 20,
-            color: "#666",
-            fontFamily: "Exo2-Medium",
-            textAlign: "left",
-          }}
+          style={{ fontSize: 20, color: "#666", fontFamily: "Exo2-Medium" }}
         >
-          Please sign in to your account
+          {t("please_sign_in_to_your_account")}
         </Text>
       </View>
 
@@ -90,10 +79,10 @@ const SignInScreen = ({ navigation }) => {
           marginBottom: 8,
         }}
       >
-        Email Address
+        {t("email_address")}
       </Text>
       <TextInput
-        placeholder="Email Address"
+        placeholder={t("email")}
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -113,13 +102,7 @@ const SignInScreen = ({ navigation }) => {
       />
 
       {/* Password Input */}
-      <View
-        style={{
-          // position: "relative",
-          justifyContent: "center",
-          marginBottom: 10,
-        }}
-      >
+      <View style={{ justifyContent: "center", marginBottom: 10 }}>
         <Text
           style={{
             color: "#212121",
@@ -128,10 +111,10 @@ const SignInScreen = ({ navigation }) => {
             marginBottom: 8,
           }}
         >
-          Password
+          {t("password")}
         </Text>
         <TextInput
-          placeholder="Password"
+          placeholder={t("password")}
           value={password}
           onChangeText={setPassword}
           secureTextEntry={secureText}
@@ -150,22 +133,13 @@ const SignInScreen = ({ navigation }) => {
         />
         <TouchableOpacity
           onPress={() => setSecureText(!secureText)}
-          style={{
-            position: "absolute",
-            right: 15,
-            top: 43,
-          }}
+          style={{ position: "absolute", right: 15, top: 43 }}
         >
           <Entypo
             name={secureText ? "eye-with-line" : "eye"}
             size={24}
             color="#FF6F00"
           />
-          {/* <Ionicons
-            name={secureText ? "eye-off-outline" : "eye-outline"}
-            size={24}
-            color="#FF6F00"
-          /> */}
         </TouchableOpacity>
       </View>
 
@@ -181,7 +155,7 @@ const SignInScreen = ({ navigation }) => {
             fontSize: 18,
           }}
         >
-          Forgot Password?
+          {t("forgot_password")}
         </Text>
       </TouchableOpacity>
 
@@ -201,13 +175,9 @@ const SignInScreen = ({ navigation }) => {
         }}
       >
         <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            fontFamily: "Exo2-Bold",
-          }}
+          style={{ color: "#FFFFFF", fontSize: 20, fontFamily: "Exo2-Bold" }}
         >
-          Sign In
+          {t("sign_in")}
         </Text>
       </TouchableOpacity>
 
@@ -229,7 +199,7 @@ const SignInScreen = ({ navigation }) => {
               fontFamily: "Exo2-Medium",
             }}
           >
-            OR
+            {t("or")}
           </Text>
           <View
             style={{
@@ -242,17 +212,12 @@ const SignInScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Social Sign In Buttons */}
+      {/* Social Sign In */}
       <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 10,
-        }}
+        style={{ flexDirection: "column", alignItems: "center", marginTop: 10 }}
       >
-        {/* Google Sign In */}
         <TouchableOpacity
-          onPress={() => Alert.alert("Sign In", "Sign in with Google")}
+          onPress={() => Alert.alert(t("sign_in"), t("sign_in_with_google"))}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -273,7 +238,7 @@ const SignInScreen = ({ navigation }) => {
               color: "#212B3E",
             }}
           >
-            Continue with Google
+            {t("continue_with_google")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -287,13 +252,9 @@ const SignInScreen = ({ navigation }) => {
         }}
       >
         <Text
-          style={{
-            color: "#333",
-            fontSize: 16,
-            fontFamily: "Exo2-SemiBold",
-          }}
+          style={{ color: "#333", fontSize: 16, fontFamily: "Exo2-SemiBold" }}
         >
-          Don’t have an account?{" "}
+          {t("dont_have_account")}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")}>
           <Text
@@ -304,7 +265,7 @@ const SignInScreen = ({ navigation }) => {
               fontFamily: "Exo2-Bold",
             }}
           >
-            Sign Up
+            {t("sign_up")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -313,39 +274,3 @@ const SignInScreen = ({ navigation }) => {
 };
 
 export default SignInScreen;
-
-{
-  /* <View
-  style={{
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "50%",
-    alignSelf: "center",
-  }}
->
-  <TouchableOpacity
-    onPress={() => Alert.alert("Sign In", "Sign in with Google")}
-    style={{
-      flex: 1,
-      paddingVertical: 14,
-      borderRadius: 10,
-      alignItems: "center",
-      marginRight: 10,
-    }}
-  >
-    <AntDesign name="google" size={35} color="#DB4437" />
-  </TouchableOpacity>
-  <TouchableOpacity
-    onPress={() => Alert.alert("Sign In", "Sign in with Facebook")}
-    style={{
-      flex: 1,
-      paddingVertical: 14,
-      borderRadius: 10,
-      alignItems: "center",
-      marginLeft: 10,
-    }}
-  >
-    <Entypo name="facebook" size={35} color="#4267B2" />
-  </TouchableOpacity>
-</View>; */
-}

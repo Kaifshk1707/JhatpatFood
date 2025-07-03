@@ -12,12 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/Store";
 import { decrement, increment } from "../../redux/CounterSlice";
 import { getFood } from "../../redux/FoodAction";
+import { useTranslation } from "react-i18next";
 
 
 const HomeScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [likedItems, setLikedItems] = useState<{ [key: string]: boolean }>({});
   const foods = useSelector((state: RootState) => state.foodSlice.foods);
+
+  const { t } = useTranslation();
 
   const handlePress = (id: string) => {
     const isLiked = likedItems[id];
@@ -43,14 +46,9 @@ const HomeScreen = () => {
       <ScrollView style={{ flex: 1, marginBottom: 40 }}>
         {/* Header Hero Text */}
         <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-          <Text
-            style={{ fontSize: 22, color: "#333", fontFamily: "Exo2-Bold" }}
-          >
-            <TypeWriter typing={1} maxDelay={120}>
-              Provide the best{" "}
-              <Text style={{ fontFamily: "Exo2-Medium" }}>food for you</Text>
-            </TypeWriter>
-          </Text>
+          <TypeWriter typing={1} maxDelay={120}>
+            {t("provide_the_best_food_for_you")}
+          </TypeWriter>
         </View>
 
         {/* Category Row */}
@@ -63,7 +61,7 @@ const HomeScreen = () => {
           }}
         >
           <Text style={{ fontSize: 25, fontFamily: "Exo2-SemiBold" }}>
-            Popular Our Food
+            {t("popular_our_food")}
           </Text>
         </View>
 

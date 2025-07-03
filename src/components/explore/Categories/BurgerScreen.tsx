@@ -10,8 +10,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const BurgerScreen = () => {
+  const {t} = useTranslation()
   const url = "https://www.themealdb.com/api/json/v1/1/filter.php?i=beef";
   const navigation = useNavigation();
   const [burgerItems, setBurgerItems] = useState([]);
@@ -67,7 +69,7 @@ const BurgerScreen = () => {
           marginBottom: 10,
         }}
       >
-        🍔 Burger Dishes
+        🍔 {t("burger_dishes")}
       </Text>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>

@@ -3,9 +3,11 @@ import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } fr
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const DrinkScreen = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation()
 
   const url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vodka";
   const [drinkItems, setDrinkItems] = useState([]);
@@ -57,10 +59,9 @@ const DrinkScreen = () => {
           marginBottom: 20,
         }}
       >
-        🥤 Refreshing Drinks
+        🥤 {t("drink_dishes")}
       </Text>
-      <ScrollView
-        showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
           <ActivityIndicator size="large" color="#0288D1" />
         ) : (
@@ -81,7 +82,7 @@ const DrinkScreen = () => {
                   height: 200,
                   borderTopLeftRadius: 16,
                   borderTopRightRadius: 16,
-                  resizeMode: "cover", 
+                  resizeMode: "cover",
                 }}
               />
               <View style={{ padding: 16 }}>

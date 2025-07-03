@@ -10,10 +10,12 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const DessertsScreen = () => {
   const url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert";
   const navigation = useNavigation();
+  const {t} = useTranslation()
   const [dessertItems, setDessertItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +69,7 @@ const DessertsScreen = () => {
           marginBottom: 10,
         }}
       >
-        🍰 Dessert Dishes
+        🍰 {t("dessert_dishes")}
       </Text>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>

@@ -1,15 +1,14 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import ActionSheet, { SheetManager } from "react-native-actions-sheet";
+import LanguageBottomSheet from "../../components/language/LanguageBottomSheet";
+import { useTranslation } from "react-i18next";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
+  const { t } = useTranslation();
   const user = {
     name: "Shaikh Kaif",
     email: "kaif@jhatpatfood.com",
@@ -18,124 +17,109 @@ const ProfileScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={{
+        padding: 20,
+        backgroundColor: "#FFF8F0",
+        flexGrow: 1,
+      }}
+    >
       {/* App Branding */}
-      <View style={styles.header}>
+      <View style={{ alignItems: "center", marginBottom: 20 }}>
         <Ionicons name="fast-food-outline" size={60} color="#FF6F00" />
-        <Text style={styles.appName}>JhatpatFood</Text>
-        <Text style={styles.tagline}>
-          Fast, Fresh & Delivered at Your Doorstep
+        <Text
+          style={{
+            fontSize: 26,
+            fontWeight: "bold",
+            color: "#FF6F00",
+            marginTop: 6,
+          }}
+        >
+          {t("app_name")}
+        </Text>
+        <Text
+          style={{
+            fontSize: 14,
+            color: "#666",
+            textAlign: "center",
+            marginTop: 2,
+          }}
+        >
+          {t("app_tagline")}
         </Text>
       </View>
 
       {/* Profile Info */}
-      <View style={styles.profileCard}>
-        <Image source={user.profileImage} style={styles.avatar} />
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.email}>{user.email}</Text>
-        <Text style={styles.address}>{user.address}</Text>
+      <View
+        style={{
+          alignItems: "center",
+          marginBottom: 30,
+          backgroundColor: "#fff",
+          borderRadius: 16,
+          padding: 20,
+          elevation: 3,
+        }}
+      >
+        <Image
+          source={user.profileImage}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 60,
+            marginBottom: 10,
+            borderWidth: 2,
+            borderColor: "#FF6F00",
+          }}
+        />
+        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#333" }}>
+          {user.name}
+        </Text>
+        <Text style={{ fontSize: 14, color: "#777", marginTop: 4 }}>
+          {user.email}
+        </Text>
+        <Text style={{ fontSize: 14, color: "#555", marginTop: 2 }}>
+          {user.address}
+        </Text>
       </View>
+      <LanguageBottomSheet />
 
       {/* Profile Options */}
-      <View style={styles.menuCard}>
-        <ProfileOption icon="cart-outline" title="My Orders" />
-        <ProfileOption icon="star-outline" title="Favourites" />
-        <ProfileOption icon="location-outline" title="Saved Addresses" />
-        <ProfileOption icon="settings-outline" title="Account Settings" />
-        {/* <ProfileOption
-          icon="information-circle-outline"
-          title="About JhatpatFood"
-        /> */}
-        {/* <ProfileOption icon="call-outline" title="Contact Support" /> */}
-        <ProfileOption icon="log-out-outline" title="Logout" />
+      <View
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: 16,
+          elevation: 2,
+          paddingVertical: 4,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            SheetManager.show("LANG_sHEET");
+          }}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 16,
+            borderBottomColor: "#eee",
+            borderBottomWidth: 1,
+          }}
+        >
+          <Ionicons name="language-outline" size={22} color="#FF6F00" />
+          <Text style={{ fontSize: 16, color: "#333", marginLeft: 12 }}>
+            {t("language")}
+          </Text>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={20}
+            color="#999"
+            style={{ marginLeft: "auto" }}
+          />
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
-const ProfileOption = ({ icon, title }) => (
-  <TouchableOpacity style={styles.option}>
-    <Ionicons name={icon} size={22} color="#FF6F00" />
-    <Text style={styles.optionText}>{title}</Text>
-    <Ionicons
-      name="chevron-forward-outline"
-      size={20}
-      color="#999"
-      style={{ marginLeft: "auto" }}
-    />
-  </TouchableOpacity>
-);
+
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: "#FFF8F0",
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  appName: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#FF6F00",
-    marginTop: 6,
-  },
-  tagline: {
-    fontSize: 14,
-    color: "#666",
-    textAlign: "center",
-    marginTop: 2,
-  },
-  profileCard: {
-    alignItems: "center",
-    marginBottom: 30,
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    padding: 20,
-    elevation: 3,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    marginBottom: 10,
-    borderWidth: 2,
-    borderColor: "#FF6F00",
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  email: {
-    fontSize: 14,
-    color: "#777",
-    marginTop: 4,
-  },
-  address: {
-    fontSize: 14,
-    color: "#555",
-    marginTop: 2,
-  },
-  menuCard: {
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    elevation: 2,
-    paddingVertical: 4,
-  },
-  option: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    borderBottomColor: "#eee",
-    borderBottomWidth: 1,
-  },
-  optionText: {
-    fontSize: 16,
-    color: "#333",
-    marginLeft: 12,
-  },
-});

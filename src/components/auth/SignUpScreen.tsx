@@ -1,21 +1,15 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  StatusBar,
-  Image,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import auth from "@react-native-firebase/auth";
+import { useTranslation } from "react-i18next";
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accepted, setAccepted] = useState(false);
+  const { t } = useTranslation();
 
   const toggleCheckbox = () => setAccepted(!accepted);
 
@@ -23,11 +17,14 @@ const SignUpScreen = ({ navigation }) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        Alert.alert("Success", "Sign Up Successful! Now you can sign in.");
+        Alert.alert(t("success"), t("sign_up_successful_now_you_can_sign_in"));
         navigation.navigate("SignInScreen");
       })
       .catch((error) => {
-        Alert.alert("Error", error.nativeErrorMessage || "Sign Up Failed");
+        Alert.alert(
+          t("error"),
+          error.nativeErrorMessage || t("sign_up_failed")
+        );
       });
   };
 
@@ -40,33 +37,25 @@ const SignUpScreen = ({ navigation }) => {
         justifyContent: "center",
       }}
     >
-      {/* Heading Section */}
+      {/* Heading */}
       <View style={{ marginBottom: 30 }}>
-        <Text
-          style={{
-            fontSize: 40,
-            color: "#333",
-            fontFamily: "Exo2-Bold",
-            textAlign: "left",
-          }}
-        >
-          Create your new account
+        <Text style={{ fontSize: 40, color: "#333", fontFamily: "Exo2-Bold" }}>
+          {t("create_your_new_account")}
         </Text>
         <Text
           style={{
             fontSize: 18,
             color: "#666",
             fontFamily: "Exo2-Medium",
-            textAlign: "left",
             marginTop: 5,
             marginBottom: -10,
           }}
         >
-          Create a new account to start looking for your food you like
+          {t("create_account_subtext")}
         </Text>
       </View>
 
-      {/* Email Input */}
+      {/* Email */}
       <Text
         style={{
           color: "#212121",
@@ -75,10 +64,10 @@ const SignUpScreen = ({ navigation }) => {
           marginBottom: 8,
         }}
       >
-        Email Address
+        {t("email_address")}
       </Text>
       <TextInput
-        placeholder="Email Address"
+        placeholder={t("email")}
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -97,7 +86,7 @@ const SignUpScreen = ({ navigation }) => {
         }}
       />
 
-      {/* Password Input */}
+      {/* Password */}
       <Text
         style={{
           color: "#212121",
@@ -106,10 +95,10 @@ const SignUpScreen = ({ navigation }) => {
           marginBottom: 8,
         }}
       >
-        Password
+        {t("password")}
       </Text>
       <TextInput
-        placeholder="Password"
+        placeholder={t("password")}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -127,6 +116,7 @@ const SignUpScreen = ({ navigation }) => {
         }}
       />
 
+      {/* Checkbox */}
       <View
         style={{
           flexDirection: "row",
@@ -138,7 +128,6 @@ const SignUpScreen = ({ navigation }) => {
           right: 15,
         }}
       >
-        {/* Checkbox */}
         <TouchableOpacity onPress={toggleCheckbox}>
           <MaterialIcons
             name={accepted ? "check-box" : "check-box-outline-blank"}
@@ -146,8 +135,6 @@ const SignUpScreen = ({ navigation }) => {
             color={accepted ? "#FF6F00" : "#888"}
           />
         </TouchableOpacity>
-
-        {/* Text with links */}
         <Text
           style={{
             marginLeft: 8,
@@ -157,29 +144,25 @@ const SignUpScreen = ({ navigation }) => {
             flexShrink: 1,
           }}
         >
-          I agree with{" "}
+          {t("i_agree_with")}{" "}
           <Text
             style={{
               color: "#FF6F00",
               textDecorationLine: "underline",
-              fontSize: 18,
               fontFamily: "Exo2-SemiBold",
             }}
-            // onPress={() => Linking.openURL("https://yourapp.com/terms")}
           >
-            Terms of Service
+            {t("terms_of_service")}
           </Text>{" "}
-          and{" "}
+          {t("and")}{" "}
           <Text
             style={{
               color: "#FF6F00",
               textDecorationLine: "underline",
-              fontSize: 18,
               fontFamily: "Exo2-SemiBold",
             }}
-            // onPress={() => Linking.openURL("https://yourapp.com/privacy")}
           >
-            Privacy Policy
+            {t("privacy_policy")}
           </Text>
         </Text>
       </View>
@@ -200,17 +183,13 @@ const SignUpScreen = ({ navigation }) => {
         }}
       >
         <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            fontFamily: "Exo2-Bold",
-          }}
+          style={{ color: "#FFFFFF", fontSize: 20, fontFamily: "Exo2-Bold" }}
         >
-          Sign Up
+          {t("sign_up")}
         </Text>
       </TouchableOpacity>
 
-      {/* Divider Section */}
+      {/* Divider */}
       <View style={{ marginVertical: 20, alignItems: "center" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
@@ -228,7 +207,7 @@ const SignUpScreen = ({ navigation }) => {
               fontFamily: "Exo2-Medium",
             }}
           >
-            OR
+            {t("or")}
           </Text>
           <View
             style={{
@@ -241,16 +220,12 @@ const SignUpScreen = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Google Sign In */}
       <View
-        style={{
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 5,
-        }}
+        style={{ flexDirection: "column", alignItems: "center", marginTop: 5 }}
       >
-        {/* Google Sign In */}
         <TouchableOpacity
-          onPress={() => Alert.alert("Sign In", "Sign in with Google")}
+          onPress={() => Alert.alert(t("sign_in"), t("sign_in_with_google"))}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -270,7 +245,7 @@ const SignUpScreen = ({ navigation }) => {
               color: "#212B3E",
             }}
           >
-            Continue with Google
+            {t("continue_with_google")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -284,13 +259,9 @@ const SignUpScreen = ({ navigation }) => {
         }}
       >
         <Text
-          style={{
-            color: "#333",
-            fontSize: 16,
-            fontFamily: "Exo2-SemiBold",
-          }}
+          style={{ color: "#333", fontSize: 16, fontFamily: "Exo2-SemiBold" }}
         >
-          Already have an account?{" "}
+          {t("already_have_account")}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
           <Text
@@ -301,7 +272,7 @@ const SignUpScreen = ({ navigation }) => {
               textDecorationLine: "underline",
             }}
           >
-            Sign In
+            {t("sign_in")}
           </Text>
         </TouchableOpacity>
       </View>

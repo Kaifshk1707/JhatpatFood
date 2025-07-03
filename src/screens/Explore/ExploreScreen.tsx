@@ -8,9 +8,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 
 const ExploreScreen = ({ navigation }) => {
+  const {t} = useTranslation()
   return (
     <ScrollView
       style={{
@@ -27,7 +29,7 @@ const ExploreScreen = ({ navigation }) => {
           marginBottom: 16,
         }}
       >
-        Explore Categories
+        {t("explore_categories")}
       </Text>
       {/* <View
         style={{
@@ -88,7 +90,7 @@ const ExploreScreen = ({ navigation }) => {
               fontFamily: "Exo2-SemiBold",
             }}
           >
-            Chicken
+            {t("category_chicken")}
           </Text>
         </TouchableOpacity>
 
@@ -114,7 +116,7 @@ const ExploreScreen = ({ navigation }) => {
               color: "#FFA726",
             }}
           >
-            Burgers
+            {t("category_burgers")}
           </Text>
         </TouchableOpacity>
 
@@ -140,7 +142,7 @@ const ExploreScreen = ({ navigation }) => {
               color: "#AB47BC",
             }}
           >
-            Desserts
+            {t("category_desserts")}
           </Text>
         </TouchableOpacity>
 
@@ -166,7 +168,7 @@ const ExploreScreen = ({ navigation }) => {
               color: "#29B6F6",
             }}
           >
-            Drinks
+            {t("category_drinks")}
           </Text>
         </TouchableOpacity>
 
@@ -192,7 +194,7 @@ const ExploreScreen = ({ navigation }) => {
               color: "#26A69A",
             }}
           >
-            Fishes
+            {t("category_fishes")}
           </Text>
         </TouchableOpacity>
 
@@ -218,7 +220,7 @@ const ExploreScreen = ({ navigation }) => {
               color: "#FFCA28",
             }}
           >
-            Biryani
+            {t("category_biryani")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -232,8 +234,7 @@ const ExploreScreen = ({ navigation }) => {
           fontFamily: "Exo2-SemiBold",
         }}
       >
-        Start exploring your favorite food and discover new delicious meals
-        nearby!
+        {t("explore_screen_subtext")}
       </Text>
     </ScrollView>
   );
