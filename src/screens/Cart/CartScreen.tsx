@@ -8,9 +8,11 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/Store";
+import { useTranslation } from "react-i18next";
 
 const CartScreen = () => {
   const { value } = useSelector((state: RootState) => state.counterSlice);
+  const { t } = useTranslation();
 
   const [cartItems, setCartItems] = useState([
     { id: "1", name: "Margherita Pizza", quantity: 2, price: 8.99 },
@@ -28,7 +30,9 @@ const CartScreen = () => {
     <View style={styles.cartItem}>
       <View>
         <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+        <Text style={styles.itemQuantity}>
+          {t("quantity")} {item.quantity}
+        </Text>
       </View>
       <Text style={styles.itemPrice}>
         ${(item.price * item.quantity).toFixed(2)}
@@ -38,13 +42,13 @@ const CartScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={styles.title}>Your Cart</Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={styles.title}>{t("your_cart")}</Text>
         <Text style={styles.title}>{value}</Text>
       </View>
 
       {cartItems.length === 0 ? (
-        <Text style={styles.emptyText}>Your cart is empty.</Text>
+        <Text style={styles.emptyText}>{t("cart_empty")}</Text>
       ) : (
         <>
           <FlatList
@@ -55,12 +59,12 @@ const CartScreen = () => {
           />
 
           <View style={styles.totalContainer}>
-            <Text style={styles.totalText}>Total:</Text>
+            <Text style={styles.totalText}>{t("total")}</Text>
             <Text style={styles.totalAmount}>${total.toFixed(2)}</Text>
           </View>
 
           <TouchableOpacity style={styles.checkoutButton}>
-            <Text style={styles.checkoutText}>Proceed to Checkout</Text>
+            <Text style={styles.checkoutText}>{t("proceed_to_checkout")}</Text>
           </TouchableOpacity>
         </>
       )}
