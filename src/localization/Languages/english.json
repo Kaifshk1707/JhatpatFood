@@ -15,7 +15,8 @@
   "dont_have_account": "Don’t have an account? ",
   "sign_up": "Sign Up",
   "success": "Success",
-  "you_have_successfully_signed_in_to_your_account": "You have successfully signed in to your account.",
+  "you_have_successfully_signed_in_to_your_account": "You have successfully signed in to your account",
+  "you_have_successfully_signed_out_to_your_account": "You have successfully signed out to your account",
   "sign_in_failed": "⚠️ Sign-in Failed!",
   "please_check_your_credentials_and_try_again": "Please check your credentials and try again.",
   "sign_in_with_google": "Sign in with Google",
@@ -54,5 +55,11 @@
   "fishe_dishes": "Fishes Dishes",
   "biryani_dishes" :"Biryani Dishes",
   "select_language": "Select Language",
-  "change": "Change"
+  "change": "Change",
+  "log_out":"Log Out",
+  "are_you_sure_you_want_to_logout":"Are you sure you want to log out?",
+  "yes":"Yes",
+  "no":"No",
+  "confirm_logout":"Confirm Logout"
+
 }

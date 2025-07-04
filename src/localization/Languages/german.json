@@ -16,6 +16,7 @@
   "sign_up": "Registrieren",
   "success": "Erfolg",
   "you_have_successfully_signed_in_to_your_account": "Du hast dich erfolgreich bei deinem Konto angemeldet.",
+  "you_have_successfully_signed_out_to_your_account": "Du hast dich erfolgreich von deinem Konto abgemeldet",
   "sign_in_failed": "⚠️ Anmeldung fehlgeschlagen!",
   "please_check_your_credentials_and_try_again": "Bitte überprüfe deine Zugangsdaten und versuche es erneut.",
   "sign_in_with_google": "Mit Google anmelden",
@@ -54,5 +55,10 @@
   "fishe_dishes": "Fischgerichte",
   "biryani_dishes": "Biryani-Gerichte",
   "select_language": "Sprache auswählen",
-  "change": "Ändern"
+  "change": "Ändern",
+  "log_out": "Abmelden",
+  "are_you_sure_you_want_to_logout": "Möchtest du dich wirklich abmelden?",
+  "yes": "Ja",
+  "no": "Nein",
+  "confirm_logout": "Abmeldung bestätigen"
 }

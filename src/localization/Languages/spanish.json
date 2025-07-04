@@ -16,6 +16,7 @@
   "sign_up": "Regístrate",
   "success": "Éxito",
   "you_have_successfully_signed_in_to_your_account": "Has iniciado sesión en tu cuenta correctamente.",
+  "you_have_successfully_signed_out_to_your_account": "Has cerrado sesión correctamente en tu cuenta",
   "sign_in_failed": "⚠️ ¡Inicio de sesión fallido!",
   "please_check_your_credentials_and_try_again": "Verifica tus credenciales e inténtalo de nuevo.",
   "sign_in_with_google": "Iniciar sesión con Google",
@@ -54,5 +55,10 @@
   "fishe_dishes": "Platos de pescado",
   "biryani_dishes": "Platos de biryani",
   "select_language": "Seleccionar idioma",
-  "change": "Cambiar"
+  "change": "Cambiar",
+  "log_out": "Cerrar sesión",
+  "are_you_sure_you_want_to_logout": "¿Estás seguro de que quieres cerrar sesión?",
+  "yes": "Sí",
+  "no": "No",
+  "confirm_logout": "Confirmar cierre de sesión"
 }
