@@ -10,11 +10,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const ChickenScreen = () => {
   const url =
     "https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast";
   const navigation = useNavigation();
+  const {t} = useTranslation()
   const [chickenItems, setChickenItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -68,21 +70,21 @@ const ChickenScreen = () => {
           marginBottom: 10,
         }}
       >
-        🍗 Chicken Dishes
+        🍗 {t("chicken_dishes")}
       </Text>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
         {loading ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            height: 700,
-          }}
-        >
-          <ActivityIndicator size={50} color="#D84315" />
-        </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              height: 700,
+            }}
+          >
+            <ActivityIndicator size={50} color="#D84315" />
+          </View>
         ) : (
           chickenItems.map((item) => (
             <View

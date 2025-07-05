@@ -7,14 +7,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/Store";
+import { useTranslation } from "react-i18next";
+
 
 const Drawer = createDrawerNavigator();
 
 const MainDrawerStack = ({navigation}) => {
+  const { t } = useTranslation();
   const { value } = useSelector((state: RootState) => state.counterSlice);
   return (
     <Drawer.Navigator
-      initialRouteName="JhatpatFood"
+      initialRouteName={t("jhatpat_food")}
       screenOptions={{
         headerStyle: {
           backgroundColor: "#FF6F00", // Top AppBar background color
@@ -38,7 +41,7 @@ const MainDrawerStack = ({navigation}) => {
       }}
     >
       <Drawer.Screen
-        name="JhatpatFood"
+        name={t("jhatpat_food")}
         component={MainBottomTab}
         options={{
           drawerLabel: "Home",
@@ -46,7 +49,14 @@ const MainDrawerStack = ({navigation}) => {
             <Ionicons name="home" size={size} color={color} />
           ),
           headerRight: () => (
-            <View style={{ marginRight: 15, flexDirection: "row", alignItems: "center", padding: 10 }}>
+            <View
+              style={{
+                marginRight: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                padding: 10,
+              }}
+            >
               <Ionicons
                 name="notifications-outline"
                 size={32}

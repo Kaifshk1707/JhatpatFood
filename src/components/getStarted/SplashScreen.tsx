@@ -1,7 +1,11 @@
 import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const SplashScreen = ({ navigation }) => {
+
+  const {t} = useTranslation()
+
   return (
     <View
       style={{
@@ -23,7 +27,7 @@ const SplashScreen = ({ navigation }) => {
             marginBottom: 8,
           }}
         >
-          Welcome to Jhatpat Food
+          {t("welcome_to_jhatpat_food")}
         </Text>
         <Text
           style={{
@@ -33,7 +37,7 @@ const SplashScreen = ({ navigation }) => {
             color: "#FF6F00",
           }}
         >
-          Your favorite food delivery app
+          {t("your_favorite_food_delivery_app")}
         </Text>
       </View>
 
@@ -92,7 +96,7 @@ const SplashScreen = ({ navigation }) => {
               // fontWeight: "900",
             }}
           >
-            Let’s Start
+            {t("lets_start")}
           </Text>
         </TouchableOpacity>
       </View>

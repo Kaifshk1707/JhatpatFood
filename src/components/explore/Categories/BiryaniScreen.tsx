@@ -10,8 +10,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const BiryaniScreen = () => {
+  const {t} = useTranslation()
   const url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian";
   const navigation = useNavigation();
   const [biryaniItems, setBiryaniItems] = useState([]);
@@ -67,7 +69,7 @@ const BiryaniScreen = () => {
           marginBottom: 10,
         }}
       >
-        🍛 Biryani Dishes
+        🍛 {t("biryani_dishes")}
       </Text>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
