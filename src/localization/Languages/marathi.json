@@ -16,6 +16,7 @@
   "sign_up": "नोंदणी करा",
   "success": "यशस्वी",
   "you_have_successfully_signed_in_to_your_account": "तुम्ही यशस्वीरित्या खात्यात साइन इन केले आहे.",
+  "you_have_successfully_signed_out_to_your_account": "तुम्ही तुमच्या खात्यातून यशस्वीरित्या साइन आउट झाले आहात",
   "sign_in_failed": "⚠️ साइन इन अयशस्वी!",
   "please_check_your_credentials_and_try_again": "कृपया तुमची माहिती तपासा आणि पुन्हा प्रयत्न करा.",
   "sign_in_with_google": "Google सह साइन इन करा",
@@ -54,5 +55,10 @@
   "fishe_dishes": "माशांचे पदार्थ",
   "biryani_dishes": "बिर्याणीचे पदार्थ",
   "select_language": "भाषा निवडा",
-  "change": "बदला"
+  "change": "बदला",
+  "log_out": "लॉग आऊट",
+  "are_you_sure_you_want_to_logout": "तुम्हाला खात्री आहे की तुम्ही लॉग आउट करू इच्छिता?",
+  "yes": "होय",
+  "no": "नाही",
+  "confirm_logout": "लॉगआउटची पुष्टी करा"
 }

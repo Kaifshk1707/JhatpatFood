@@ -16,6 +16,7 @@
   "sign_up": "إنشاء حساب",
   "success": "نجاح",
   "you_have_successfully_signed_in_to_your_account": "لقد قمت بتسجيل الدخول إلى حسابك بنجاح.",
+  "you_have_successfully_signed_out_to_your_account": "تم تسجيل الخروج من حسابك بنجاح",
   "sign_in_failed": "⚠️ فشل تسجيل الدخول!",
   "please_check_your_credentials_and_try_again": "يرجى التحقق من بيانات الاعتماد الخاصة بك والمحاولة مرة أخرى.",
   "sign_in_with_google": "تسجيل الدخول باستخدام جوجل",
@@ -54,5 +55,10 @@
   "fishe_dishes": "أطباق الأسماك",
   "biryani_dishes": "أطباق البرياني",
   "select_language": "اختر اللغة",
-  "change": "تغيير"
+  "change": "تغيير",
+  "log_out": "تسجيل الخروج",
+  "are_you_sure_you_want_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "yes": "نعم",
+  "no": "لا",
+  "confirm_logout": "تأكيد تسجيل الخروج"
 }

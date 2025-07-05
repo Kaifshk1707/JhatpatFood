@@ -1,0 +1,62 @@
+import { View, Text, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const App = () => {
+  const [total, setTotal] = useState(0);
+
+  //Store Data
+  const storTotalExpense = async (value) => {
+    try {
+      await AsyncStorage.setItem("total", value);
+      // await AsyncStorage.setItem("total", value.toString());
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //Read Data
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("total");
+      if (value !== null) {
+        console.log("Get Value from Local Storage :-", value);
+        setTotal(+value)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //Remove Data 
+  const removeData = async () =>{
+    try {
+      await AsyncStorage.removeItem("total");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //Increase Button to Total
+  const handleIncrease = () => {
+    const updateValue = total + 1;
+    setTotal(updateValue);
+    storTotalExpense(updateValue.toString());
+  };
+
+  return (
+    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+      <Text style={{ fontSize: 25 }}>Expense App</Text>
+      <Button title="-" onPress={removeData} />
+      <Text style={{ fontSize: 25 }}>Total expenses= {total}</Text>
+      <Button title="+" onPress={handleIncrease} />
+    </View>
+  );
+};
+
+export default App;
