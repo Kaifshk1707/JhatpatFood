@@ -15,12 +15,22 @@ import { useTranslation } from "react-i18next";
 import auth from "@react-native-firebase/auth";
 import { showMessage } from "react-native-flash-message";
 import ProfileCard from "../../components/profile/ProfileCard";
+import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    undefined
+  );
+  const [user, setUser] = useState({
+    name: "Kaif",
+    email: "kaif@example.com",
+    profileImage: require("./../../assets/Image/signIn.jpg"),
+  });
 
   const handleLogout = async () => {
     try {
@@ -128,15 +138,12 @@ const ProfileScreen = () => {
 
       {/* Profile Info */}
       <ProfileCard
-        user={{
-          name: "Shaikh Kaif",
-          email: "kaif@jhatpatfood.com",
-          // address: "Mumbai, India",
-          profileImage: require("./../../assets/Image/Profile picture.png"),
-        }}
+        user={user}
         onEditProfileImage={() => {
           console.log("Edit profile image pressed");
+          pickMyImage();
         }}
+        onChangeUser={setUser}
       />
 
       <LanguageBottomSheet />
