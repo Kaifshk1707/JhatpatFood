@@ -14,19 +14,13 @@ import LanguageBottomSheet from "../../components/language/LanguageBottomSheet";
 import { useTranslation } from "react-i18next";
 import auth from "@react-native-firebase/auth";
 import { showMessage } from "react-native-flash-message";
+import ProfileCard from "../../components/profile/ProfileCard";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
-
-  const user = {
-    name: "Shaikh Kaif",
-    email: "kaif@jhatpatfood.com",
-    address: "Mumbai, India",
-    profileImage: require("./../../assets/Image/Profile picture.png"),
-  };
 
   const handleLogout = async () => {
     try {
@@ -88,37 +82,17 @@ const ProfileScreen = () => {
       </View>
 
       {/* Profile Info */}
-      <View
-        style={{
-          alignItems: "center",
-          marginBottom: 30,
-          backgroundColor: "#fff",
-          borderRadius: 16,
-          padding: 20,
-          elevation: 3,
+      <ProfileCard
+        user={{
+          name: "Shaikh Kaif",
+          email: "kaif@jhatpatfood.com",
+          address: "Mumbai, India",
+          profileImage: require("./../../assets/Image/Profile picture.png"),
         }}
-      >
-        <Image
-          source={user.profileImage}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 60,
-            marginBottom: 10,
-            borderWidth: 2,
-            borderColor: "#FF6F00",
-          }}
-        />
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#333" }}>
-          {user.name}
-        </Text>
-        <Text style={{ fontSize: 14, color: "#777", marginTop: 4 }}>
-          {user.email}
-        </Text>
-        <Text style={{ fontSize: 14, color: "#555", marginTop: 2 }}>
-          {user.address}
-        </Text>
-      </View>
+        onEditProfileImage={() => {
+          console.log("Edit profile image pressed");
+        }}
+      />
 
       <LanguageBottomSheet />
 
