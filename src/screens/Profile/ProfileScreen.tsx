@@ -32,6 +32,14 @@ const ProfileScreen = () => {
     profileImage: require("./../../assets/Image/signIn.jpg"),
   });
 
+  const handleUserChange = async (updatedUser: typeof user) => {
+    setUser(updatedUser);
+
+    // Save updated user info locally
+    await AsyncStorage.setItem("user_name", updatedUser.name);
+    await AsyncStorage.setItem("user_email", updatedUser.email);
+  };
+
   const handleLogout = async () => {
     try {
       await auth().signOut();
@@ -77,13 +85,29 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
-    const loadImage = async () => {
+    const loadImageAndUser = async () => {
+      // Load saved profile image
       const savedUri = await AsyncStorage.getItem("profile_image_uri");
+
+      // Load locally saved name/email
+      const savedName = await AsyncStorage.getItem("user_name");
+      const savedEmail = await AsyncStorage.getItem("user_email");
+
+      // Load Firebase Auth user
+      const currentUser = auth().currentUser;
+
+      setUser({
+        name: savedName || currentUser?.displayName || "",
+        email: savedEmail || currentUser?.email || "",
+        profileImage: savedUri || require("../../assets/Image/signIn.jpg"),
+      });
+
       if (savedUri) {
-        setSelectedImage(savedUri); // triggers useEffect below
+        setSelectedImage(savedUri);
       }
     };
-    loadImage();
+
+    loadImageAndUser();
 
     const unsubscribe = auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -143,7 +167,7 @@ const ProfileScreen = () => {
           console.log("Edit profile image pressed");
           pickMyImage();
         }}
-        onChangeUser={setUser}
+        onChangeUser={handleUserChange}
       />
 
       <LanguageBottomSheet />
