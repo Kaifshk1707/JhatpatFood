@@ -60,5 +60,11 @@
   "are_you_sure_you_want_to_logout": "¿Estás seguro de que quieres cerrar sesión?",
   "yes": "Sí",
   "no": "No",
-  "confirm_logout": "Confirmar cierre de sesión"
+  "confirm_logout": "Confirmar cierre de sesión",
+  "about_us": "Sobre nosotros",
+"edit": "Editar",
+"edit_profile": "Editar perfil",
+"name": "Nombre",
+"save": "Guardar",
+  "image_selection_canceled": "Selección de imagen cancelada"
 }

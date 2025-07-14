@@ -60,5 +60,11 @@
   "are_you_sure_you_want_to_logout": "Möchtest du dich wirklich abmelden?",
   "yes": "Ja",
   "no": "Nein",
-  "confirm_logout": "Abmeldung bestätigen"
+  "confirm_logout": "Abmeldung bestätigen",
+  "about_us": "Über uns",
+  "edit": "Bearbeiten",
+  "edit_profile": "Profil bearbeiten",
+  "name": "Name",
+  "save": "Speichern",
+  "image_selection_canceled": "Bildauswahl abgebrochen"
 }

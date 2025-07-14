@@ -60,5 +60,11 @@
   "are_you_sure_you_want_to_logout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "yes": "نعم",
   "no": "لا",
-  "confirm_logout": "تأكيد تسجيل الخروج"
+  "confirm_logout": "تأكيد تسجيل الخروج",
+  "about_us": "معلومات عنا",
+  "edit": "تعديل",
+  "edit_profile": "تعديل الملف الشخصي",
+  "name": "الاسم",
+  "save": "حفظ",
+  "image_selection_canceled": "تم إلغاء اختيار الصورة"
 }

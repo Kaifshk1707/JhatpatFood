@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 const MainAppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="AuthStack" component={AuthStack} />
+    {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
     <Stack.Screen name="MainDrawerStack" component={MainDrawerStack} />
     <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
     <Stack.Screen name="ChickenScreen" component={ChickenScreen} />
