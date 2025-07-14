@@ -60,5 +60,11 @@
   "are_you_sure_you_want_to_logout": "क्या आप वाकई लॉग आउट करना चाहते हैं?",
   "yes": "हाँ",
   "no": "नहीं",
-  "confirm_logout": "लॉगआउट की पुष्टि करें"
+  "confirm_logout": "लॉगआउट की पुष्टि करें",
+  "about_us": "हमारे बारे में",
+  "edit": "संपादित करें",
+  "edit_profile": "प्रोफ़ाइल संपादित करें",
+  "name": "नाम",
+  "save": "सहेजें",
+  "image_selection_canceled": "छवि चयन रद्द किया गया"
 }

@@ -53,13 +53,19 @@
   "dessert_dishes": "Desserts Dishes",
   "drink_dishes": "Drinks Dishes",
   "fishe_dishes": "Fishes Dishes",
-  "biryani_dishes" :"Biryani Dishes",
+  "biryani_dishes": "Biryani Dishes",
   "select_language": "Select Language",
   "change": "Change",
-  "log_out":"Log Out",
-  "are_you_sure_you_want_to_logout":"Are you sure you want to log out?",
-  "yes":"Yes",
-  "no":"No",
-  "confirm_logout":"Confirm Logout"
-
+  "log_out": "Log Out",
+  "are_you_sure_you_want_to_logout": "Are you sure you want to log out?",
+  "yes": "Yes",
+  "no": "No",
+  "confirm_logout": "Confirm Logout",
+  "logout_successful": "Logout Successful",
+  "about_us": "About Us",
+  "edit": "Edit",
+  "edit_profile": "Edit Profile",
+  "name": "Name",
+  "save": "Save",
+  "image_selection_canceled": "Image selection canceled"
 }
