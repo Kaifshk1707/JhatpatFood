@@ -1,28 +1,48 @@
-import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  ImageBackground,
+} from "react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 const SplashScreen = ({ navigation }) => {
-
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
-    <View
+    <ImageBackground
+      source={require("./../../assets/Image/bgImage2.jpg")}
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        paddingTop: 60,
+        paddingTop: "20%",
         backgroundColor: "#fff",
       }}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       {/* Top Text Section */}
-      <View style={{ marginBottom: 30 }}>
+      <View
+        style={{
+          marginBottom: 30,
+          backgroundColor: "#fff",
+          width: "100%",
+          padding: 8,
+          borderRadius: 12,
+          elevation: 4,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.2,
+          shadowRadius: 3,
+        }}
+      >
         <Text
           style={{
-            fontSize: 28,
-            fontFamily: "Exo2-SemiBold",
+            fontSize: 30,
+            fontFamily: "Exo2-Bold",
             color: "#FF6F00",
             marginBottom: 8,
           }}
@@ -86,7 +106,7 @@ const SplashScreen = ({ navigation }) => {
             shadowOpacity: 0.2,
             shadowRadius: 3,
           }}
-          onPress={() => navigation.navigate("SignInScreen")}
+          onPress={() => navigation.navigate("SplashScreenTwo")}
         >
           <Text
             style={{
@@ -100,7 +120,7 @@ const SplashScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

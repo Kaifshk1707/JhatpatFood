@@ -3,6 +3,7 @@ import SignInScreen from "../components/auth/SignInScreen";
 import SignUpScreen from "../components/auth/SignUpScreen";
 import SplashScreen from "../components/getStarted/SplashScreen";
 import ForgotScreen from "../components/auth/ForgotScreen";
+import SplashScreenTwo from "../components/getStarted/SplashScreenTwo";
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
@@ -12,6 +13,7 @@ const AuthStack = () => {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="SplashScreenTwo" component={SplashScreenTwo} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       <Stack.Screen name="ForgotScreen" component={ForgotScreen} />
