@@ -5,8 +5,6 @@ import AboutUs from "../components/home/DrawerScreen/AboutUs";
 import Settings from "../components/home/DrawerScreen/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/Store";
 import { useTranslation } from "react-i18next";
 
 
@@ -14,7 +12,6 @@ const Drawer = createDrawerNavigator();
 
 const MainDrawerStack = ({navigation}) => {
   const { t } = useTranslation();
-  const { value } = useSelector((state: RootState) => state.cartSlice);
   return (
     <Drawer.Navigator
       initialRouteName={t("jhatpat_food")}
@@ -73,7 +70,8 @@ const MainDrawerStack = ({navigation}) => {
                 //   navigation.navigate("CartScreen");
                 // }}
               />
-              {value > 0 && (
+              {/* {value > 0 && (
+               
                 <View
                   style={{
                     position: "absolute",
@@ -94,7 +92,7 @@ const MainDrawerStack = ({navigation}) => {
                     {value > 99 ? "99+" : value}
                   </Text>
                 </View>
-              )}
+              )} */}
             </View>
           ),
         }}
