@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 
 const MainDrawerStack = ({navigation}) => {
   const { t } = useTranslation();
-  const { value } = useSelector((state: RootState) => state.counterSlice);
+  const { value } = useSelector((state: RootState) => state.cartSlice);
   return (
     <Drawer.Navigator
       initialRouteName={t("jhatpat_food")}

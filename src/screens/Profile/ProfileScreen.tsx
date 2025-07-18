@@ -15,12 +15,30 @@ import { useTranslation } from "react-i18next";
 import auth from "@react-native-firebase/auth";
 import { showMessage } from "react-native-flash-message";
 import ProfileCard from "../../components/profile/ProfileCard";
+import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    undefined
+  );
+  const [user, setUser] = useState({
+    name: "Kaif",
+    email: "kaif@example.com",
+    profileImage: require("./../../assets/Image/signIn.jpg"),
+  });
+
+  const handleUserChange = async (updatedUser: typeof user) => {
+    setUser(updatedUser);
+
+    // Save updated user info locally
+    await AsyncStorage.setItem("user_name", updatedUser.name);
+    await AsyncStorage.setItem("user_email", updatedUser.email);
+  };
 
   const handleLogout = async () => {
     try {
@@ -39,14 +57,75 @@ const ProfileScreen = () => {
     }
   };
 
+  const pickMyImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images", "videos"],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const selectImage = result.assets[0].uri;
+      setSelectedImage(selectImage);
+
+      // ✅ Save image URI to local storage
+      await AsyncStorage.setItem("profile_image_uri", selectImage);
+    } else {
+      showMessage({
+        message: t("error"),
+        description: t("image_selection_canceled"),
+        type: "danger",
+        icon: "danger",
+        backgroundColor: "#FF6F00",
+        color: "#fff",
+        duration: 3000,
+      });
+    }
+  };
+
   useEffect(() => {
+    const loadImageAndUser = async () => {
+      // Load saved profile image
+      const savedUri = await AsyncStorage.getItem("profile_image_uri");
+
+      // Load locally saved name/email
+      const savedName = await AsyncStorage.getItem("user_name");
+      const savedEmail = await AsyncStorage.getItem("user_email");
+
+      // Load Firebase Auth user
+      const currentUser = auth().currentUser;
+
+      setUser({
+        name: savedName || currentUser?.displayName || "",
+        email: savedEmail || currentUser?.email || "",
+        profileImage: savedUri || require("../../assets/Image/signIn.jpg"),
+      });
+
+      if (savedUri) {
+        setSelectedImage(savedUri);
+      }
+    };
+
+    loadImageAndUser();
+
     const unsubscribe = auth().onAuthStateChanged((user) => {
       if (!user) {
         navigation.navigate("AuthStack", { screen: "SignInScreen" });
       }
     });
+
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if (selectedImage) {
+      setUser((prevUser) => ({
+        ...prevUser,
+        profileImage: selectedImage,
+      }));
+    }
+  }, [selectedImage]);
 
   return (
     <ScrollView
@@ -83,15 +162,12 @@ const ProfileScreen = () => {
 
       {/* Profile Info */}
       <ProfileCard
-        user={{
-          name: "Shaikh Kaif",
-          email: "kaif@jhatpatfood.com",
-          address: "Mumbai, India",
-          profileImage: require("./../../assets/Image/Profile picture.png"),
-        }}
+        user={user}
         onEditProfileImage={() => {
           console.log("Edit profile image pressed");
+          pickMyImage();
         }}
+        onChangeUser={handleUserChange}
       />
 
       <LanguageBottomSheet />
@@ -120,6 +196,29 @@ const ProfileScreen = () => {
           <Ionicons name="language-outline" size={22} color="#FF6F00" />
           <Text style={{ fontSize: 16, color: "#333", marginLeft: 12 }}>
             {t("language")}
+          </Text>
+          <Ionicons
+            name="chevron-forward-outline"
+            size={20}
+            color="#999"
+            style={{ marginLeft: "auto" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AboutUs")}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 16,
+          }}
+        >
+          <Ionicons
+            name="information-circle-outline"
+            size={22}
+            color="#FF6F00"
+          />
+          <Text style={{ fontSize: 16, color: "#333", marginLeft: 12 }}>
+            {t("about_us")}
           </Text>
           <Ionicons
             name="chevron-forward-outline"

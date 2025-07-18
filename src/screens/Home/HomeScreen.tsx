@@ -10,8 +10,8 @@ import { Ionicons } from "@expo/vector-icons";
 import TypeWriter from "react-native-typewriter";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/Store";
-import { decrement, increment } from "../../redux/CounterSlice";
-import { getFood } from "../../redux/FoodAction";
+import { addToCart, decrement, increment } from "./../../redux/reducers/cartSlice"; 
+import { getFood } from "./../../redux/Actions/FoodAction";
 import { useTranslation } from "react-i18next";
 
 
@@ -23,18 +23,20 @@ const HomeScreen = () => {
   const { t } = useTranslation();
 
   const handlePress = (id: string) => {
-    const isLiked = likedItems[id];
+    dispatch(increment());
 
-    if (isLiked) {
-      dispatch(decrement());
-    } else {
-      dispatch(increment());
-    }
+    // const isLiked = likedItems[id];
 
-    setLikedItems((prev) => ({
-      ...prev,
-      [id]: !isLiked,
-    }));
+    // if (isLiked) {
+    //   dispatch(decrement());
+    // } else {
+    //   dispatch(increment());
+    // }
+
+    // setLikedItems((prev) => ({
+    //   ...prev,
+    //   [id]: !isLiked,
+    // }));
   };
 
   useEffect(() => {
@@ -94,7 +96,17 @@ const HomeScreen = () => {
               />
 
               <TouchableOpacity
-                onPress={() => handlePress(item.idCategory)}
+                onPress={() =>
+                  dispatch(
+                    addToCart({
+                      id: item.idCategory,
+                      name: item.strCategory,
+                      price: 9.99, // dummy price
+                      image: item.strCategoryThumb,
+                      quantity: 1,
+                    })
+                  )
+                }
                 style={{
                   position: "absolute",
                   top: 12,
