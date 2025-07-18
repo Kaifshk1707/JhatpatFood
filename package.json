@@ -12,6 +12,7 @@
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-firebase/app": "^22.2.1",
     "@react-native-firebase/auth": "^22.2.1",
+    "@react-native-firebase/firestore": "^22.4.0",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/bottom-tabs": "^7.3.13",
     "@react-navigation/drawer": "^7.3.12",
@@ -30,10 +31,11 @@
     "react-native-actions-sheet": "^0.9.7",
     "react-native-flash-message": "^0.4.2",
     "react-native-gesture-handler": "^2.25.0",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-reanimated": "^3.17.5",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.10.0",
-    "react-native-typewriter": "^0.7.0",
+    "react-native-shimmer-placeholder": "^2.0.9",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {

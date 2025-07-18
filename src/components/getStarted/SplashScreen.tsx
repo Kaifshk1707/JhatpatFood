@@ -8,8 +8,16 @@ import {
 } from "react-native";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-const SplashScreen = ({ navigation }) => {
+type RootStackParamList = {
+  SplashScreenTwo: undefined;
+  // add other screens here if needed
+};
+
+const SplashScreen = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { t } = useTranslation();
 
   return (
@@ -18,11 +26,11 @@ const SplashScreen = ({ navigation }) => {
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        paddingTop: "20%",
+        paddingTop: "13%",
         backgroundColor: "#fff",
       }}
     >
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="default" backgroundColor="transparent" />
 
       {/* Top Text Section */}
       <View
