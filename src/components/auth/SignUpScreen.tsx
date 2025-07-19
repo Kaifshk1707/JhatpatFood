@@ -1,8 +1,21 @@
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import auth from "@react-native-firebase/auth";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
 
 const SignUpScreen = ({ navigation }) => {
@@ -14,6 +27,11 @@ const SignUpScreen = ({ navigation }) => {
   const toggleCheckbox = () => setAccepted(!accepted);
 
   const handleSignUp = () => {
+    if (!accepted) {
+      Alert.alert(t("terms_required"), t("please_accept_terms"));
+      return;
+    }
+
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -29,26 +47,31 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: "#F5F5F5",
-        paddingHorizontal: 24,
+        paddingHorizontal: wp("6%"),
         justifyContent: "center",
       }}
     >
       {/* Heading */}
-      <View style={{ marginBottom: 30 }}>
-        <Text style={{ fontSize: 40, color: "#333", fontFamily: "Exo2-Bold" }}>
+      <View style={{ marginBottom: hp("4%") }}>
+        <Text
+          style={{
+            fontSize: RFValue(28),
+            color: "#333",
+            fontFamily: "Exo2-Bold",
+          }}
+        >
           {t("create_your_new_account")}
         </Text>
         <Text
           style={{
-            fontSize: 18,
+            fontSize: RFValue(15),
             color: "#666",
             fontFamily: "Exo2-Medium",
-            marginTop: 5,
-            marginBottom: -10,
+            marginTop: hp("0.5%"),
           }}
         >
           {t("create_account_subtext")}
@@ -60,8 +83,8 @@ const SignUpScreen = ({ navigation }) => {
         style={{
           color: "#212121",
           fontFamily: "Exo2-Medium",
-          fontSize: 16,
-          marginBottom: 8,
+          fontSize: RFValue(14),
+          marginBottom: 6,
         }}
       >
         {t("email_address")}
@@ -74,15 +97,15 @@ const SignUpScreen = ({ navigation }) => {
         autoCapitalize="none"
         placeholderTextColor="#FF6F00"
         style={{
-          height: 50,
+          height: hp("6.2%"),
           backgroundColor: "#FFFFFF",
           borderRadius: 10,
-          paddingHorizontal: 16,
-          fontSize: 16,
+          paddingHorizontal: wp("4%"),
+          fontSize: RFValue(14),
           fontFamily: "Exo2-SemiBold",
           borderWidth: 1,
           borderColor: "#FF6F00",
-          marginBottom: 8,
+          marginBottom: hp("1.5%"),
         }}
       />
 
@@ -91,8 +114,8 @@ const SignUpScreen = ({ navigation }) => {
         style={{
           color: "#212121",
           fontFamily: "Exo2-Medium",
-          fontSize: 16,
-          marginBottom: 8,
+          fontSize: RFValue(14),
+          marginBottom: 6,
         }}
       >
         {t("password")}
@@ -104,15 +127,15 @@ const SignUpScreen = ({ navigation }) => {
         secureTextEntry
         placeholderTextColor="#FF6F00"
         style={{
-          height: 50,
+          height: hp("6.2%"),
           backgroundColor: "#FFFFFF",
           borderRadius: 10,
-          paddingHorizontal: 16,
-          fontSize: 16,
+          paddingHorizontal: wp("4%"),
+          fontSize: RFValue(14),
           fontFamily: "Exo2-SemiBold",
           borderWidth: 1,
           borderColor: "#FF6F00",
-          marginBottom: 8,
+          marginBottom: hp("2%"),
         }}
       />
 
@@ -121,25 +144,21 @@ const SignUpScreen = ({ navigation }) => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: 20,
-          marginBottom: 15,
-          marginTop: 15,
-          right: 15,
+          marginBottom: hp("2%"),
         }}
       >
         <TouchableOpacity onPress={toggleCheckbox}>
           <MaterialIcons
             name={accepted ? "check-box" : "check-box-outline-blank"}
-            size={24}
+            size={RFValue(20)}
             color={accepted ? "#FF6F00" : "#888"}
           />
         </TouchableOpacity>
         <Text
           style={{
-            marginLeft: 8,
+            marginLeft: 10,
             color: "#333",
-            fontSize: 18,
+            fontSize: RFValue(13),
             fontFamily: "Exo2-Medium",
             flexShrink: 1,
           }}
@@ -172,7 +191,7 @@ const SignUpScreen = ({ navigation }) => {
         onPress={handleSignUp}
         style={{
           backgroundColor: "#FF6F00",
-          paddingVertical: 14,
+          paddingVertical: hp("1.8%"),
           borderRadius: 10,
           alignItems: "center",
           shadowColor: "#FF6F00",
@@ -183,18 +202,22 @@ const SignUpScreen = ({ navigation }) => {
         }}
       >
         <Text
-          style={{ color: "#FFFFFF", fontSize: 20, fontFamily: "Exo2-Bold" }}
+          style={{
+            color: "#FFFFFF",
+            fontSize: RFValue(16),
+            fontFamily: "Exo2-Bold",
+          }}
         >
           {t("sign_up")}
         </Text>
       </TouchableOpacity>
 
       {/* Divider */}
-      <View style={{ marginVertical: 20, alignItems: "center" }}>
+      <View style={{ marginVertical: hp("3%"), alignItems: "center" }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
             style={{
-              width: 130,
+              width: wp("25%"),
               height: 1,
               backgroundColor: "#FF6F00",
               marginRight: 10,
@@ -203,7 +226,7 @@ const SignUpScreen = ({ navigation }) => {
           <Text
             style={{
               color: "#FF6F00",
-              fontSize: 16,
+              fontSize: RFValue(13),
               fontFamily: "Exo2-Medium",
             }}
           >
@@ -211,7 +234,7 @@ const SignUpScreen = ({ navigation }) => {
           </Text>
           <View
             style={{
-              width: 130,
+              width: wp("25%"),
               height: 1,
               backgroundColor: "#FF6F00",
               marginLeft: 10,
@@ -221,54 +244,55 @@ const SignUpScreen = ({ navigation }) => {
       </View>
 
       {/* Google Sign In */}
-      <View
-        style={{ flexDirection: "column", alignItems: "center", marginTop: 5 }}
+      <TouchableOpacity
+        onPress={() => Alert.alert(t("sign_in"), t("sign_in_with_google"))}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          borderWidth: 1,
+          borderColor: "#DB4437",
+          borderRadius: 10,
+          paddingVertical: hp("1.5%"),
+          paddingHorizontal: wp("6%"),
+          alignSelf: "center",
+        }}
       >
-        <TouchableOpacity
-          onPress={() => Alert.alert(t("sign_in"), t("sign_in_with_google"))}
+        <AntDesign name="google" size={RFValue(20)} color="#DB4437" />
+        <Text
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 1,
-            borderColor: "#DB4437",
-            borderRadius: 10,
-            paddingVertical: 12,
-            paddingHorizontal: 20,
+            marginLeft: 10,
+            fontSize: RFValue(14),
+            fontFamily: "Exo2-SemiBold",
+            color: "#212B3E",
           }}
         >
-          <AntDesign name="google" size={24} color="#DB4437" />
-          <Text
-            style={{
-              marginLeft: 10,
-              fontSize: 16,
-              fontFamily: "Exo2-SemiBold",
-              color: "#212B3E",
-            }}
-          >
-            {t("continue_with_google")}
-          </Text>
-        </TouchableOpacity>
-      </View>
+          {t("continue_with_google")}
+        </Text>
+      </TouchableOpacity>
 
       {/* Sign In Redirect */}
       <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          marginTop: 20,
+          marginTop: hp("3%"),
         }}
       >
         <Text
-          style={{ color: "#333", fontSize: 16, fontFamily: "Exo2-SemiBold" }}
+          style={{
+            color: "#333",
+            fontSize: RFValue(13),
+            fontFamily: "Exo2-SemiBold",
+          }}
         >
-          {t("already_have_account")}
+          {t("already_have_account")}{" "}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("SignInScreen")}>
           <Text
             style={{
               color: "#FF6F00",
-              fontSize: 18,
-              fontFamily: "Exo2-SemiBold",
+              fontSize: RFValue(14),
+              fontFamily: "Exo2-Bold",
               textDecorationLine: "underline",
             }}
           >
@@ -276,7 +300,7 @@ const SignUpScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,0 +1,4 @@
+//  Font & Spacing	Use react-native-responsive-fontsize and responsive-screen for responsive font sizes and screen dimensions
+//  Safe Area	Use react-native-safe-area-context for handling safe areas in iOS and Android
+//  Installation	Use yarn to install the libraries
+yarn add react-native-responsive-screen react-native-responsive-fontsize react-native-safe-area-context

@@ -1,127 +1,107 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-  ImageBackground,
-} from "react-native";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { View, Text, TouchableOpacity, Image, Platform } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
 
-const SplashScreen = ({ navigation }) => {
-  const { t } = useTranslation();
+const SplashScreenTwo = () => {
+  const navigation = useNavigation();
 
   return (
-    <ImageBackground
-      source={require("./../../assets/Image/bgImage2.jpg")}
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingTop: "20%",
-        backgroundColor: "#fff",
-      }}
-    >
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-
-      {/* Top Text Section */}
-      <View
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      {/* Top Image */}
+      <Image
+        source={require("./../../assets/Image/splashTwo.jpg")}
+        resizeMode="cover"
         style={{
-          marginBottom: 30,
-          backgroundColor: "#fff",
           width: "100%",
-          padding: 8,
-          borderRadius: 12,
-          elevation: 4,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 3,
+          height: hp("60%"),
+          borderBottomLeftRadius: wp("8%"),
+          borderBottomRightRadius: wp("8%"),
+          alignSelf: "center",
         }}
-      >
-        <Text
-          style={{
-            fontSize: 30,
-            fontFamily: "Exo2-Bold",
-            color: "#FF6F00",
-            marginBottom: 8,
-          }}
-        >
-          {t("welcome_to_jhatpat_food")}
-        </Text>
-        <Text
-          style={{
-            fontSize: 18,
-            fontFamily: "Exo2-Light",
-            lineHeight: 24,
-            color: "#FF6F00",
-          }}
-        >
-          {t("your_favorite_food_delivery_app")}
-        </Text>
-      </View>
+      />
 
-      {/* Image Grid */}
+      {/* Bottom Orange Section */}
       <View
         style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
+          flex: 1,
+          backgroundColor: "#FF7F00",
+          borderTopLeftRadius: wp("8%"),
+          borderTopRightRadius: wp("8%"),
+          padding: wp("3%"),
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {[
-          require("./../../assets/Image/Splash1.jpg"),
-          require("./../../assets/Image/Splash2.jpeg"),
-          require("./../../assets/Image/Splash3.jpeg"),
-          require("./../../assets/Image/Splash4.webp"),
-          require("./../../assets/Image/Splash5.jpg"),
-          require("./../../assets/Image/Splash6.jpeg"),
-        ].map((img, index) => (
-          <Image
-            key={index}
-            source={img}
-            style={{
-              width: "48%",
-              height: 180,
-              borderRadius: 12,
-              marginBottom: 15,
-              backgroundColor: "#eee",
-            }}
-            resizeMode="cover"
-          />
-        ))}
-      </View>
-
-      {/* Button Section */}
-      <View style={{ marginTop: 20 }}>
-        <TouchableOpacity
+        <Text
           style={{
-            backgroundColor: "#FF6F00",
-            paddingVertical: 16,
-            borderRadius: 12,
-            alignItems: "center",
-            elevation: 4,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 3,
+            color: "white",
+            fontSize: RFValue(22),
+            fontWeight: "bold",
+            textAlign: "center",
+            marginTop: hp("2%"),
+            // lineHeight: RFValue(28),
           }}
-          onPress={() => navigation.navigate("SplashScreenTwo")}
         >
-          <Text
+          We serve incomparable delicacies
+        </Text>
+
+        <Text
+          style={{
+            color: "#fff",
+            fontSize: RFValue(14),
+            textAlign: "center",
+            marginVertical: hp("2%"),
+            lineHeight: RFValue(22),
+          }}
+        >
+          All the best restaurants with their top menu waiting for you, they
+          can’t wait for your order!!
+        </Text>
+
+        {/* Skip Button with Icon */}
+        <View
+          style={{ width: "100%", alignItems: "center", marginTop: hp("3%") }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("SignInScreen")}
             style={{
-              color: "#fff",
-              fontSize: 20,
-              fontFamily: "Exo2-Bold",
-              // fontWeight: "900",
+              backgroundColor: "white",
+              borderRadius: wp("10%"),
+              paddingHorizontal: wp("7%"),
+              paddingVertical: hp("1.5%"),
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              elevation: 5,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: Platform.OS === "android" ? 0.3 : 0.15,
+              shadowRadius: 4,
             }}
           >
-            {t("lets_start")}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "#FF7F00",
+                fontSize: RFValue(16),
+                fontWeight: "700",
+                marginRight: wp("1.5%"),
+              }}
+            >
+              Skip
+            </Text>
+            <AntDesign name="arrowright" size={RFValue(18)} color="#FF7F00" />
+          </TouchableOpacity>
+        </View>
       </View>
-    </ImageBackground>
+    </SafeAreaView>
   );
 };
 
-export default SplashScreen;
+export default SplashScreenTwo;
