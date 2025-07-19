@@ -1,124 +1,242 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
+import firestore from "@react-native-firebase/firestore";
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 import { useTranslation } from "react-i18next";
 
-const ChickenScreen = () => {
-  const url =
-    "https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast";
-  const navigation = useNavigation();
-  const {t} = useTranslation()
-  const [chickenItems, setChickenItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+const { width } = Dimensions.get("window");
 
-  const getFoodItems = async () => {
+interface FoodItem {
+  id: string;
+  idCategory: string;
+  title: string;
+  image: string;
+  rating: number;
+  price: number;
+  description?: string;
+}
+
+const ChickenScreen = () => {
+  const navigation = useNavigation();
+  const { t } = useTranslation();
+  const [foodData, setFoodData] = useState<FoodItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchChickenData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(url);
-      // API returns meals as idMeal, strMeal, strMealThumb
-      const formatted = response.data.meals.map((meal) => ({
-        id: meal.idMeal,
-        name: meal.strMeal,
-        image: meal.strMealThumb,
-      }));
-      setChickenItems(formatted);
-      // console.log(
-      //   "Chicken items fetched successfully:",
-      //   JSON.stringify(formatted, null, 2)
-      // );
+      const ChickenCollection = await firestore().collection("chicken").get();
+      const chickenFoodList = ChickenCollection.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+        } as FoodItem;
+      });
+      setFoodData(chickenFoodList);
     } catch (error) {
-      console.error("Error fetching fish items:", error);
+      console.error("Error fetching chicken data:", error);
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    getFoodItems();
   }, []);
 
+  useEffect(() => {
+    fetchChickenData();
+  }, []);
+
+  const handleLike = (id: string) => {
+    // Implement like logic
+    console.log("Liked item:", id);
+  };
+
+  const renderCard = (item: FoodItem) => (
+    <View
+      key={item.id}
+      style={{
+        width: width * 0.93,
+        backgroundColor: "#fff",
+        borderRadius: 16,
+        marginBottom: 20,
+        padding: 14,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        elevation: 5,
+        alignSelf: "center",
+        borderWidth: 0.3,
+        borderColor: "#eee",
+      }}
+    >
+      <View
+        style={{
+          borderRadius: 14,
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <Image
+          source={{ uri: item.image }}
+          style={{
+            width: "100%",
+            height: 190,
+          }}
+          resizeMode="cover"
+        />
+
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            backgroundColor: "#fff",
+            padding: 6,
+            borderRadius: 30,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.15,
+            shadowRadius: 4,
+            elevation: 4,
+          }}
+          onPress={() => handleLike(item.id)}
+        >
+          <Ionicons name={"heart-outline"} size={18} color="#FF6F00" />
+        </TouchableOpacity>
+      </View>
+
+      <Text
+        style={{
+          marginTop: 12,
+          fontSize: 17,
+          fontFamily: "Exo2-SemiBold",
+          color: "#222",
+        }}
+        numberOfLines={1}
+      >
+        {item.title}
+      </Text>
+
+      <Text
+        style={{
+          marginTop: 6,
+          fontSize: 15,
+          fontFamily: "Exo2-Regular",
+          color: "#555",
+        }}
+        numberOfLines={2}
+      >
+        {item.description}
+      </Text>
+
+      <View
+        style={{
+          height: 1.2,
+          backgroundColor: "#D84315",
+          marginVertical: 10,
+          borderRadius: 30,
+        }}
+      />
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 14,
+            fontFamily: "Exo2-Medium",
+            color: "#777",
+          }}
+        >
+          ⭐ {item.rating}
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
+            fontFamily: "Exo2-Bold",
+            color: "#FF6F00",
+          }}
+        >
+          ₹{item.price}
+        </Text>
+      </View>
+    </View>
+  );
+
   return (
-    <View style={{ flex: 1, padding: 16, marginBottom: 20 }}>
+    <View style={{ flex: 1, backgroundColor: "#FAFAFA", paddingTop: 40 }}>
+      {/* Header Back Button */}
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-          marginBottom: 10,
+          marginLeft: 16,
           backgroundColor: "#FFF3E0",
           padding: 10,
-          borderRadius: 5,
-          alignSelf: "flex-start",
-          marginTop: 30,
+          borderRadius: 8,
+          width: 44,
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Ionicons name="arrow-back" size={24} color="#D84315" />
+        <Ionicons name="arrow-back" size={22} color="#D84315" />
       </TouchableOpacity>
 
+      {/* Title */}
       <Text
         style={{
           fontSize: 24,
           fontWeight: "bold",
           color: "#D84315",
-          marginBottom: 10,
+          marginLeft: 16,
+          marginTop: 12,
+          marginBottom: 6,
         }}
       >
         🍗 {t("chicken_dishes")}
       </Text>
 
+      {/* Scroll List */}
       <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
-        {loading ? (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              height: 700,
-            }}
-          >
-            <ActivityIndicator size={50} color="#D84315" />
-          </View>
-        ) : (
-          chickenItems.map((item) => (
-            <View
-              key={item.id}
-              style={{
-                marginBottom: 20,
-                backgroundColor: "#FFF3E0",
-                borderRadius: 16,
-                overflow: "hidden",
-                elevation: 3,
-              }}
-            >
-              <Image
-                source={{ uri: item.image }}
+        {loading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <View
+                key={index}
                 style={{
-                  width: "100%",
-                  height: 180,
+                  width: width * 0.93,
+                  height: 280,
+                  borderRadius: 16,
+                  backgroundColor: "#fff",
+                  alignSelf: "center",
+                  marginBottom: 20,
+                  padding: 12,
                 }}
-              />
-              <View style={{ padding: 16 }}>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    color: "#D84315",
-                    marginBottom: 10,
-                  }}
-                >
-                  {item.name}
-                </Text>
+              >
+                <ShimmerPlaceholder
+                  style={{ width: "100%", height: 190, borderRadius: 12 }}
+                  shimmerStyle={{ borderRadius: 12 }}
+                />
+                <ShimmerPlaceholder
+                  style={{ width: "60%", height: 20, marginTop: 12 }}
+                />
+                <ShimmerPlaceholder
+                  style={{ width: "80%", height: 16, marginTop: 8 }}
+                />
               </View>
-            </View>
-          ))
-        )}
+            ))
+          : foodData.map((item) => renderCard(item))}
       </ScrollView>
     </View>
   );
