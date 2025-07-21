@@ -1,19 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import firestore from "@react-native-firebase/firestore";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 import { useTranslation } from "react-i18next";
-
-const { width } = Dimensions.get("window");
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface FoodItem {
   id: string;
@@ -31,11 +28,11 @@ const BiryaniScreen = () => {
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchBiryaniuData = useCallback(async () => {
+  const fetchBiryaniData = useCallback(async () => {
     setLoading(true);
     try {
-      const BiryaniCollection = await firestore().collection("biryani").get();
-      const biryaniFoodList = BiryaniCollection.docs.map((doc) => {
+      const biryaniCollection = await firestore().collection("biryani").get();
+      const biryaniFoodList = biryaniCollection.docs.map((doc) => {
         const data = doc.data();
         return {
           ...data,
@@ -51,11 +48,10 @@ const BiryaniScreen = () => {
   }, []);
 
   useEffect(() => {
-    fetchBiryaniuData();
+    fetchBiryaniData();
   }, []);
 
   const handleLike = (id: string) => {
-    // Implement like logic
     console.log("Liked item:", id);
   };
 
@@ -63,38 +59,31 @@ const BiryaniScreen = () => {
     <View
       key={item.id}
       style={{
-        width: width * 0.93,
+        width: wp("93%"),
         backgroundColor: "#fff",
         borderRadius: 16,
-        marginBottom: 20,
-        padding: 14,
+        marginBottom: hp("2.5%"),
+        padding: wp("4%"),
+        alignSelf: "center",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.08,
         shadowRadius: 10,
         elevation: 5,
-        alignSelf: "center",
         borderWidth: 0.3,
         borderColor: "#eee",
       }}
     >
       <View
-        style={{
-          borderRadius: 14,
-          overflow: "hidden",
-          position: "relative",
-        }}
+        style={{ borderRadius: 14, overflow: "hidden", position: "relative" }}
       >
         <Image
           source={{ uri: item.image }}
-          style={{
-            width: "100%",
-            height: 190,
-          }}
+          style={{ width: "100%", height: hp("25%") }}
           resizeMode="cover"
         />
-
         <TouchableOpacity
+          onPress={() => handleLike(item.id)}
           style={{
             position: "absolute",
             top: 10,
@@ -102,22 +91,17 @@ const BiryaniScreen = () => {
             backgroundColor: "#fff",
             padding: 6,
             borderRadius: 30,
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.15,
-            shadowRadius: 4,
             elevation: 4,
           }}
-          onPress={() => handleLike(item.id)}
         >
-          <Ionicons name={"heart-outline"} size={18} color="#FFB300" />
+          <Ionicons name="heart-outline" size={18} color="#FFB300" />
         </TouchableOpacity>
       </View>
 
       <Text
         style={{
           marginTop: 12,
-          fontSize: 17,
+          fontSize: RFValue(17),
           fontFamily: "Exo2-SemiBold",
           color: "#222",
         }}
@@ -129,7 +113,7 @@ const BiryaniScreen = () => {
       <Text
         style={{
           marginTop: 6,
-          fontSize: 15,
+          fontSize: RFValue(15),
           fontFamily: "Exo2-Regular",
           color: "#555",
         }}
@@ -156,7 +140,7 @@ const BiryaniScreen = () => {
       >
         <Text
           style={{
-            fontSize: 14,
+            fontSize: RFValue(14),
             fontFamily: "Exo2-Medium",
             color: "#777",
           }}
@@ -165,7 +149,7 @@ const BiryaniScreen = () => {
         </Text>
         <Text
           style={{
-            fontSize: 15,
+            fontSize: RFValue(15),
             fontFamily: "Exo2-Bold",
             color: "#FFB300",
           }}
@@ -177,12 +161,11 @@ const BiryaniScreen = () => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FAFAFA", paddingTop: 40 }}>
-      {/* Header Back Button */}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAFAFA" }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-          marginLeft: 16,
+          marginLeft: wp("4%"),
           backgroundColor: "#FFF8E1",
           padding: 10,
           borderRadius: 8,
@@ -194,13 +177,12 @@ const BiryaniScreen = () => {
         <Ionicons name="arrow-back" size={22} color="#FFB300" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text
         style={{
-          fontSize: 24,
+          fontSize: RFValue(24),
           fontWeight: "bold",
           color: "#FFB300",
-          marginLeft: 16,
+          marginLeft: wp("4%"),
           marginTop: 12,
           marginBottom: 6,
         }}
@@ -208,24 +190,23 @@ const BiryaniScreen = () => {
         🍛 {t("biryani_dishes")}
       </Text>
 
-      {/* Scroll List */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: hp("4%") }}>
         {loading
           ? Array.from({ length: 4 }).map((_, index) => (
               <View
                 key={index}
                 style={{
-                  width: width * 0.93,
-                  height: 280,
+                  width: wp("93%"),
+                  height: hp("38%"),
                   borderRadius: 16,
                   backgroundColor: "#fff",
                   alignSelf: "center",
-                  marginBottom: 20,
-                  padding: 12,
+                  marginBottom: hp("2.5%"),
+                  padding: wp("3%"),
                 }}
               >
                 <ShimmerPlaceholder
-                  style={{ width: "100%", height: 190, borderRadius: 12 }}
+                  style={{ width: "100%", height: hp("25%"), borderRadius: 12 }}
                   shimmerStyle={{ borderRadius: 12 }}
                 />
                 <ShimmerPlaceholder
@@ -238,7 +219,7 @@ const BiryaniScreen = () => {
             ))
           : foodData.map((item) => renderCard(item))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

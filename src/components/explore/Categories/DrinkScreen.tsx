@@ -1,19 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import firestore from "@react-native-firebase/firestore";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 import { useTranslation } from "react-i18next";
-
-const { width } = Dimensions.get("window");
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface FoodItem {
   id: string;
@@ -31,31 +28,30 @@ const DrinkScreen = () => {
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchChickenData = useCallback(async () => {
+  const fetchDrinkData = useCallback(async () => {
     setLoading(true);
     try {
-      const ChickenCollection = await firestore().collection("drinks").get();
-      const chickenFoodList = ChickenCollection.docs.map((doc) => {
+      const DrinkCollection = await firestore().collection("drinks").get();
+      const drinkFoodList = DrinkCollection.docs.map((doc) => {
         const data = doc.data();
         return {
           ...data,
           id: doc.id,
         } as FoodItem;
       });
-      setFoodData(chickenFoodList);
+      setFoodData(drinkFoodList);
     } catch (error) {
-      console.error("Error fetching chicken data:", error);
+      console.error("Error fetching drink data:", error);
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchChickenData();
+    fetchDrinkData();
   }, []);
 
   const handleLike = (id: string) => {
-    // Implement like logic
     console.log("Liked item:", id);
   };
 
@@ -63,11 +59,11 @@ const DrinkScreen = () => {
     <View
       key={item.id}
       style={{
-        width: width * 0.93,
+        width: wp("93%"),
         backgroundColor: "#fff",
         borderRadius: 16,
-        marginBottom: 20,
-        padding: 14,
+        marginBottom: hp("2%"),
+        padding: wp("3.5%"),
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.08,
@@ -79,26 +75,18 @@ const DrinkScreen = () => {
       }}
     >
       <View
-        style={{
-          borderRadius: 14,
-          overflow: "hidden",
-          position: "relative",
-        }}
+        style={{ borderRadius: 14, overflow: "hidden", position: "relative" }}
       >
         <Image
           source={{ uri: item.image }}
-          style={{
-            width: "100%",
-            height: 190,
-          }}
+          style={{ width: "100%", height: hp("25%") }}
           resizeMode="cover"
         />
-
         <TouchableOpacity
           style={{
             position: "absolute",
-            top: 10,
-            right: 10,
+            top: hp("1.5%"),
+            right: wp("2.5%"),
             backgroundColor: "#fff",
             padding: 6,
             borderRadius: 30,
@@ -110,14 +98,14 @@ const DrinkScreen = () => {
           }}
           onPress={() => handleLike(item.id)}
         >
-          <Ionicons name={"heart-outline"} size={18} color="#0288D1" />
+          <Ionicons name={"heart-outline"} size={RFValue(18)} color="#0288D1" />
         </TouchableOpacity>
       </View>
 
       <Text
         style={{
-          marginTop: 12,
-          fontSize: 17,
+          marginTop: hp("1.5%"),
+          fontSize: RFValue(17),
           fontFamily: "Exo2-SemiBold",
           color: "#222",
         }}
@@ -128,8 +116,8 @@ const DrinkScreen = () => {
 
       <Text
         style={{
-          marginTop: 6,
-          fontSize: 15,
+          marginTop: hp("0.5%"),
+          fontSize: RFValue(15),
           fontFamily: "Exo2-Regular",
           color: "#555",
         }}
@@ -142,7 +130,7 @@ const DrinkScreen = () => {
         style={{
           height: 1.2,
           backgroundColor: "#0288D1",
-          marginVertical: 10,
+          marginVertical: hp("1.5%"),
           borderRadius: 30,
         }}
       />
@@ -156,7 +144,7 @@ const DrinkScreen = () => {
       >
         <Text
           style={{
-            fontSize: 14,
+            fontSize: RFValue(14),
             fontFamily: "Exo2-Medium",
             color: "#777",
           }}
@@ -165,7 +153,7 @@ const DrinkScreen = () => {
         </Text>
         <Text
           style={{
-            fontSize: 15,
+            fontSize: RFValue(15),
             fontFamily: "Exo2-Bold",
             color: "#0288D1",
           }}
@@ -177,68 +165,74 @@ const DrinkScreen = () => {
   );
 
   return (
-    <View style={{ flex: 1, paddingTop: 40 }}>
-      {/* Header Back Button */}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAFAFA" }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{
-          marginLeft: 16,
+          marginLeft: wp("4%"),
           backgroundColor: "#E3F2FD",
-          padding: 10,
+          padding: wp("2.5%"),
           borderRadius: 8,
-          width: 44,
+          width: wp("11%"),
           alignItems: "center",
           justifyContent: "center",
+          marginTop: hp("1.5%"),
         }}
       >
-        <Ionicons name="arrow-back" size={22} color="#29B6F6" />
+        <Ionicons name="arrow-back" size={RFValue(22)} color="#0288D1" />
       </TouchableOpacity>
 
-      {/* Title */}
       <Text
         style={{
-          fontSize: 24,
+          fontSize: RFValue(24),
           fontWeight: "bold",
           color: "#0288D1",
-          marginLeft: 16,
-          marginTop: 12,
-          marginBottom: 6,
+          marginLeft: wp("4%"),
+          marginTop: hp("1.5%"),
+          marginBottom: hp("1%"),
         }}
       >
         🥤 {t("drink_dishes")}
       </Text>
 
-      {/* Scroll List */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: hp("4%") }}>
         {loading
           ? Array.from({ length: 4 }).map((_, index) => (
               <View
                 key={index}
                 style={{
-                  width: width * 0.93,
-                  height: 280,
+                  width: wp("93%"),
+                  height: hp("36%"),
                   borderRadius: 16,
                   backgroundColor: "#fff",
                   alignSelf: "center",
-                  marginBottom: 20,
-                  padding: 12,
+                  marginBottom: hp("2%"),
+                  padding: wp("3%"),
                 }}
               >
                 <ShimmerPlaceholder
-                  style={{ width: "100%", height: 190, borderRadius: 12 }}
+                  style={{ width: "100%", height: hp("25%"), borderRadius: 12 }}
                   shimmerStyle={{ borderRadius: 12 }}
                 />
                 <ShimmerPlaceholder
-                  style={{ width: "60%", height: 20, marginTop: 12 }}
+                  style={{
+                    width: "60%",
+                    height: hp("2.5%"),
+                    marginTop: hp("1.5%"),
+                  }}
                 />
                 <ShimmerPlaceholder
-                  style={{ width: "80%", height: 16, marginTop: 8 }}
+                  style={{
+                    width: "80%",
+                    height: hp("2.2%"),
+                    marginTop: hp("1%"),
+                  }}
                 />
               </View>
             ))
           : foodData.map((item) => renderCard(item))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

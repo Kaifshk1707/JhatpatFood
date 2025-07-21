@@ -12,6 +12,11 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Feather from "@expo/vector-icons/Feather";
 import { useTranslation } from "react-i18next";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
 
 // Types
 type User = {
@@ -39,10 +44,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     <View
       style={{
         alignItems: "center",
-        marginBottom: 30,
+        marginBottom: hp(3),
         backgroundColor: "#fff",
-        borderRadius: 16,
-        padding: 20,
+        borderRadius: wp(4),
+        padding: wp(5),
         elevation: 3,
       }}
     >
@@ -50,7 +55,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={() => setImageModalVisible(true)}
-        style={{ width: 100, height: 100, marginBottom: 10 }}
+        style={{ width: wp(25), height: wp(25), marginBottom: hp(1.5) }}
       >
         <Image
           source={
@@ -59,9 +64,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               : user.profileImage
           }
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: "100%",
+            height: "100%",
+            borderRadius: wp(12.5),
             borderWidth: 2,
             borderColor: "#FF6F00",
           }}
@@ -75,14 +80,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             bottom: 0,
             right: 0,
             backgroundColor: "#fff",
-            borderRadius: 20,
-            padding: 4,
+            borderRadius: wp(5),
+            padding: wp(1),
             elevation: 3,
             borderColor: "#FF6F00",
             borderWidth: 1,
           }}
         >
-          <Ionicons name="camera" size={20} color="#FF6F00" />
+          <Ionicons name="camera" size={RFValue(18)} color="#FF6F00" />
         </TouchableOpacity>
       </TouchableOpacity>
 
@@ -112,7 +117,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               style={{
                 width: "100%",
                 height: "100%",
-                borderRadius: 16,
+                borderRadius: wp(4),
               }}
               resizeMode="contain"
             />
@@ -123,7 +128,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       {/* Name & Email */}
       <Text
         style={{
-          fontSize: 20,
+          fontSize: RFValue(20),
           fontWeight: "bold",
           color: "#333",
         }}
@@ -132,9 +137,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       </Text>
       <Text
         style={{
-          fontSize: 14,
+          fontSize: RFValue(13),
           color: "#777",
-          marginTop: 4,
+          marginTop: hp(0.5),
         }}
       >
         {user.email}
@@ -145,13 +150,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         onPress={() => setTextModalVisible(true)}
         style={{
           position: "absolute",
-          bottom: 10,
-          right: 10,
-          borderRadius: 20,
-          padding: 4,
+          bottom: hp(1),
+          right: wp(3),
+          borderRadius: wp(5),
+          padding: wp(1),
         }}
       >
-        <Feather name="edit" size={24} color="black" />
+        <Feather name="edit" size={RFValue(20)} color="black" />
       </TouchableOpacity>
 
       {/* Text Edit Modal */}
@@ -174,19 +179,19 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           <View
             style={{
               backgroundColor: "#fff",
-              borderRadius: 16,
-              padding: 20,
+              borderRadius: wp(4),
+              padding: wp(5),
               width: "80%",
               alignSelf: "center",
             }}
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: RFValue(18),
                 fontWeight: "bold",
                 color: "#333",
                 alignSelf: "center",
-                marginBottom: 15,
+                marginBottom: hp(1.5),
               }}
             >
               {t("edit")}
@@ -194,7 +199,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
             <Text
               style={{
-                fontSize: 14,
+                fontSize: RFValue(13),
                 fontWeight: "600",
                 color: "#000",
               }}
@@ -205,8 +210,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               style={{
                 borderBottomWidth: 1,
                 borderBottomColor: "#ccc",
-                marginTop: 6,
-                padding: 8,
+                marginTop: hp(0.5),
+                padding: wp(2),
               }}
               placeholder={t("name")}
               value={user.name}
@@ -215,10 +220,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
             <Text
               style={{
-                fontSize: 14,
+                fontSize: RFValue(13),
                 fontWeight: "600",
                 color: "#000",
-                marginTop: 10,
+                marginTop: hp(2),
               }}
             >
               {t("email")}
@@ -227,8 +232,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               style={{
                 borderBottomWidth: 1,
                 borderBottomColor: "#ccc",
-                marginTop: 6,
-                padding: 8,
+                marginTop: hp(0.5),
+                padding: wp(2),
               }}
               placeholder={t("email")}
               value={user.email}
@@ -239,16 +244,17 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               onPress={() => setTextModalVisible(false)}
               style={{
                 backgroundColor: "#FF6F00",
-                borderRadius: 20,
-                padding: 10,
+                borderRadius: wp(5),
+                padding: hp(1.2),
                 alignItems: "center",
-                marginTop: 20,
+                marginTop: hp(2),
               }}
             >
               <Text
                 style={{
                   color: "#fff",
                   fontWeight: "bold",
+                  fontSize: RFValue(14),
                 }}
               >
                 {t("save")}
