@@ -5,7 +5,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  StyleSheet,
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -73,31 +72,68 @@ const HomeScreen: React.FC = () => {
 
   const renderShimmerPlaceholders = () =>
     Array.from({ length: 6 }).map((_, index) => (
-      <View key={index} style={styles.foodCard}>
+      <View
+        key={index}
+        style={{
+          width: width * 0.45,
+          backgroundColor: "#FFFFFF",
+          borderRadius: 18,
+          marginBottom: hp("2%"),
+          padding: wp("1%"),
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 5 },
+          shadowOpacity: 0.1,
+          shadowRadius: 10,
+          elevation: 10,
+          borderWidth: 0.5,
+          borderColor: "#eee",
+        }}
+      >
         <ShimmerPlaceholder
           LinearGradient={LinearGradient}
-          style={styles.shimmerImage}
+          style={{
+            width: "100%",
+            height: hp("15%"),
+            borderRadius: 14,
+            marginBottom: 10,
+          }}
           shimmerColors={["#E0E0E0", "#F0F0F0", "#E0E0E0"]}
         />
         <ShimmerPlaceholder
           LinearGradient={LinearGradient}
-          style={styles.shimmerTextLine}
+          style={{
+            width: "80%",
+            height: RFValue(18),
+            borderRadius: 4,
+            marginTop: 8,
+          }}
           shimmerColors={["#E0E0E0", "#F0F0F0", "#E0E0E0"]}
         />
         <ShimmerPlaceholder
           LinearGradient={LinearGradient}
-          style={styles.shimmerDivider}
+          style={{
+            height: 1.5,
+            width: "100%",
+            borderRadius: 30,
+            marginVertical: 10,
+          }}
           shimmerColors={["#E0E0E0", "#F0F0F0", "#E0E0E0"]}
         />
-        <View style={styles.shimmerBottomRow}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingVertical: 5,
+          }}
+        >
           <ShimmerPlaceholder
             LinearGradient={LinearGradient}
-            style={styles.shimmerRating}
+            style={{ width: "40%", height: RFValue(16), borderRadius: 4 }}
             shimmerColors={["#E0E0E0", "#F0F0F0", "#E0E0E0"]}
           />
           <ShimmerPlaceholder
             LinearGradient={LinearGradient}
-            style={styles.shimmerPrice}
+            style={{ width: "30%", height: RFValue(16), borderRadius: 4 }}
             shimmerColors={["#E0E0E0", "#F0F0F0", "#E0E0E0"]}
           />
         </View>
@@ -105,19 +141,36 @@ const HomeScreen: React.FC = () => {
     ));
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {/* <View style={styles.header}>
-          <Text style={styles.headerText}>
-            {t("provide_the_best_food_for_you")}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: hp("5%") }}>
+        <View
+          style={{
+            paddingHorizontal: wp("5%"),
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: RFValue(20),
+              fontFamily: "Exo2-SemiBold",
+              color: "#34495E",
+            }}
+          >
+            {t("popular_our_food")}
           </Text>
-        </View> */}
-
-        <View style={styles.sectionTitleContainer}>
-          <Text style={styles.sectionTitle}>{t("popular_our_food")}</Text>
         </View>
 
-        <View style={styles.foodCardsContainer}>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+            paddingHorizontal: wp("4%"),
+            paddingTop: hp("1%"),
+          }}
+        >
           {loading ? (
             renderShimmerPlaceholders()
           ) : foodData.length > 0 ? (
@@ -125,17 +178,46 @@ const HomeScreen: React.FC = () => {
               <TouchableOpacity
                 key={item.id}
                 activeOpacity={0.8}
-                style={styles.foodCard}
+                style={{
+                  width: width * 0.45,
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 18,
+                  marginBottom: hp("2%"),
+                  padding: wp("1%"),
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 5 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 10,
+                  elevation: 10,
+                  borderWidth: 0.5,
+                  borderColor: "#eee",
+                }}
               >
                 <Image
                   source={{ uri: item.image }}
-                  style={styles.foodImage}
+                  style={{
+                    width: "100%",
+                    height: hp("20%"),
+                    borderRadius: 14,
+                    marginBottom: 10,
+                  }}
                   resizeMode="cover"
                 />
-
                 <TouchableOpacity
                   onPress={() => handlePress(item.id)}
-                  style={styles.heartIconContainer}
+                  style={{
+                    position: "absolute",
+                    top: 15,
+                    right: 15,
+                    backgroundColor: "#FFFFFF",
+                    padding: 7,
+                    borderRadius: 25,
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.15,
+                    shadowRadius: 3,
+                    elevation: 4,
+                  }}
                 >
                   <Ionicons
                     name={likedItems[item.id] ? "heart" : "heart-outline"}
@@ -143,26 +225,84 @@ const HomeScreen: React.FC = () => {
                     color="#FF6F00"
                   />
                 </TouchableOpacity>
-
-                <Text style={styles.foodTitle} numberOfLines={1}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontFamily: "Exo2-SemiBold",
+                    fontSize: RFValue(15),
+                    color: "#333333",
+                  }}
+                >
                   {item.title}
                 </Text>
-
-                <View style={styles.divider} />
-
-                <View style={styles.ratingPriceContainer}>
-                  <Text style={styles.ratingText}>⭐ {item.rating}</Text>
-                  <Text style={styles.priceText}>₹{item.price}</Text>
+                <View
+                  style={{
+                    height: 1.5,
+                    backgroundColor: "#FFEBCC",
+                    marginVertical: 10,
+                    borderRadius: 30,
+                  }}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: RFValue(12),
+                      fontFamily: "Exo2-Medium",
+                      color: "#777777",
+                    }}
+                  >
+                    ⭐ {item.rating}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: RFValue(13),
+                      fontFamily: "Exo2-Bold",
+                      color: "#FF6F00",
+                    }}
+                  >
+                    ₹{item.price}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))
           ) : (
-            <View style={styles.noFoodContainer}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                paddingVertical: hp("5%"),
+                width: "100%",
+              }}
+            >
               <Ionicons name="pizza-outline" size={RFValue(60)} color="#ccc" />
-              <Text style={styles.noFoodText}>
+              <Text
+                style={{
+                  fontSize: RFValue(20),
+                  fontFamily: "Exo2-SemiBold",
+                  color: "#888",
+                  marginTop: 15,
+                  textAlign: "center",
+                }}
+              >
                 {t("No delicious food found!")}
               </Text>
-              <Text style={styles.noFoodSubText}>
+              <Text
+                style={{
+                  fontSize: RFValue(14),
+                  fontFamily: "Exo2-Regular",
+                  color: "#999",
+                  marginTop: 5,
+                  textAlign: "center",
+                  paddingHorizontal: wp("8%"),
+                }}
+              >
                 {t("Please check back later.")}
               </Text>
             </View>
@@ -172,158 +312,5 @@ const HomeScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FDFDFD",
-  },
-  scrollViewContent: {
-    paddingBottom: hp("5%"),
-  },
-  header: {
-    paddingHorizontal: wp("5%"),
-    marginTop: hp("3%"),
-  },
-  headerText: {
-    fontSize: RFValue(18),
-    fontFamily: "Exo2-Bold",
-    color: "#2C3E50",
-    // lineHeight: RFValue(40),
-  },
-  sectionTitleContainer: {
-    // marginTop: hp("3%"),
-    paddingHorizontal: wp("5%"),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  sectionTitle: {
-    fontSize: RFValue(20),
-    fontFamily: "Exo2-SemiBold",
-    color: "#34495E",
-  },
-  foodCardsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    paddingHorizontal: wp("4%"),
-    paddingTop: hp("1%"),
-  },
-  foodCard: {
-    width: width * 0.45,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
-    marginBottom: hp("2%"),
-    padding: wp("1%"),
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 10,
-    borderWidth: 0.5,
-    borderColor: "#eee",
-  },
-  foodImage: {
-    width: "100%",
-    height: hp("20%"),
-    borderRadius: 14,
-    marginBottom: 10,
-  },
-  heartIconContainer: {
-    position: "absolute",
-    top: 15,
-    right: 15,
-    backgroundColor: "#FFFFFF",
-    padding: 7,
-    borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 4,
-  },
-  foodTitle: {
-    fontFamily: "Exo2-SemiBold",
-    fontSize: RFValue(15),
-    color: "#333333",
-  },
-  divider: {
-    height: 1.5,
-    backgroundColor: "#FFEBCC",
-    marginVertical: 10,
-    borderRadius: 30,
-  },
-  ratingPriceContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  ratingText: {
-    fontSize: RFValue(12),
-    fontFamily: "Exo2-Medium",
-    color: "#777777",
-  },
-  priceText: {
-    fontSize: RFValue(13),
-    fontFamily: "Exo2-Bold",
-    color: "#FF6F00",
-  },
-  shimmerImage: {
-    width: "100%",
-    height: hp("15%"),
-    borderRadius: 14,
-    marginBottom: 10,
-  },
-  shimmerTextLine: {
-    width: "80%",
-    height: RFValue(18),
-    borderRadius: 4,
-    marginTop: 8,
-  },
-  shimmerDivider: {
-    height: 1.5,
-    width: "100%",
-    borderRadius: 30,
-    marginVertical: 10,
-  },
-  shimmerBottomRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 5,
-  },
-  shimmerRating: {
-    width: "40%",
-    height: RFValue(16),
-    borderRadius: 4,
-  },
-  shimmerPrice: {
-    width: "30%",
-    height: RFValue(16),
-    borderRadius: 4,
-  },
-  noFoodContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: hp("5%"),
-    width: "100%",
-  },
-  noFoodText: {
-    fontSize: RFValue(20),
-    fontFamily: "Exo2-SemiBold",
-    color: "#888",
-    marginTop: 15,
-    textAlign: "center",
-  },
-  noFoodSubText: {
-    fontSize: RFValue(14),
-    fontFamily: "Exo2-Regular",
-    color: "#999",
-    marginTop: 5,
-    textAlign: "center",
-    paddingHorizontal: wp("8%"),
-  },
-});
 
 export default HomeScreen;
