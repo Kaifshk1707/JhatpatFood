@@ -13,55 +13,45 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
 
 const Settings = () => {
+  const navigation = useNavigation()
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Profile Section */}
-        <View style={styles.profileContainer}>
+        {/* <View style={styles.profileContainer}>
           <Ionicons name="person-circle" size={wp("20%")} color="#FF6F00" />
           <Text style={styles.username}>Shaikh Kaif</Text>
           <Text style={styles.email}>kaif@example.com</Text>
-        </View>
+        </View> */}
 
         {/* Settings List */}
         <View style={styles.section}>
-          <TouchableOpacity style={styles.item}>
-            <Ionicons name="person-outline" size={wp("5.5%")} color="#555" />
-            <Text style={styles.itemText}>Account</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("NotificationScreen")}
+            style={styles.item}
+          >
             <Feather name="bell" size={wp("5.5%")} color="#555" />
             <Text style={styles.itemText}>Notifications</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
-            <Ionicons
-              name="color-palette-outline"
-              size={wp("5.5%")}
-              color="#555"
-            />
-            <Text style={styles.itemText}>Theme</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
+          {/* <TouchableOpacity style={styles.item}>
             <MaterialIcons name="language" size={wp("5.5%")} color="#555" />
             <Text style={styles.itemText}>Language</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
-            <Feather name="lock" size={wp("5.5%")} color="#555" />
-            <Text style={styles.itemText}>Privacy & Security</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("HelpAndSupport")}
+            style={styles.item}
+          >
             <Feather name="help-circle" size={wp("5.5%")} color="#555" />
             <Text style={styles.itemText}>Help & Support</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item}>
+        
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AboutUs")}
+            style={styles.item}
+          >
             <Feather name="info" size={wp("5.5%")} color="#555" />
             <Text style={styles.itemText}>About</Text>
           </TouchableOpacity>

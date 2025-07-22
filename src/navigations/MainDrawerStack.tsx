@@ -13,12 +13,14 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
-const MainDrawerStack = ({ navigation }) => {
+const MainDrawerStack = () => {
+  const navigation = useNavigation()
   const { t } = useTranslation();
-  const { value } = useSelector((state: RootState) => state.cart);
+  const { items } = useSelector((state: RootState) => state.cart);
 
   return (
     <Drawer.Navigator
@@ -77,7 +79,7 @@ const MainDrawerStack = ({ navigation }) => {
                 color="#fff"
                 // onPress={() => navigation.navigate("CartScreen")}
               />
-              {value > 0 && (
+              {items.length > 0 && (
                 <View
                   style={{
                     position: "absolute",
@@ -99,7 +101,7 @@ const MainDrawerStack = ({ navigation }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {value > 99 ? "99+" : value}
+                    {items.length > 99 ? "99+" : items.length}
                   </Text>
                 </View>
               )}

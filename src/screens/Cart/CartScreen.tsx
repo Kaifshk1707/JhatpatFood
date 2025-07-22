@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/Store";
@@ -20,6 +21,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
@@ -55,16 +57,45 @@ const CartScreen = () => {
       </View>
       <TouchableOpacity
         onPress={() => dispatch(removeFromCart(item.id))}
-        style={styles.removeButton}
+        style={{
+          marginRight: wp("3%"),
+          borderColor: "#FF6F00",
+          borderWidth: 0.5,
+          padding: "1.3%",
+          borderRadius:5
+        }}
       >
-        <Text style={styles.removeText}>Remove</Text>
+        <AntDesign name="delete" size={24} color="#FF6F00" />
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
-      <Text style={styles.title}>Your Cart</Text>
+    <View style={[styles.container]}>
+      <View
+        style={{
+          paddingTop: Platform.OS === "android" ? 10 : 20,
+          paddingBottom: 10,
+          alignItems: "center",
+          backgroundColor: "#FFF3E0",
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
+          width: "100%",
+          borderWidth: 2,
+          borderColor: "#FF6F00",
+          marginBottom: hp("1%"),
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+            color: "#000",
+          }}
+        >
+          Your Cart
+        </Text>
+      </View>
 
       {items.length === 0 ? (
         <Text style={styles.emptyText}>🛒 Cart is empty</Text>
@@ -93,7 +124,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    paddingHorizontal: wp("5%"),
+    // paddingHorizontal: wp("5%"),
+    width: "100%",
   },
   title: {
     fontSize: RFValue(20),
@@ -102,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: hp("2%"),
   },
   emptyText: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(25),
     color: "#999",
     textAlign: "center",
     marginTop: hp("10%"),
@@ -111,14 +143,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FFF3E0",
-    marginBottom: hp("2%"),
-    padding: wp("3%"),
+    marginBottom: hp("1%"),
+    padding: wp("2%"),
     borderRadius: 14,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    borderWidth: 0.5,
+    borderColor: "#FF6F00",
   },
   image: {
     width: wp("20%"),
@@ -163,14 +197,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#333",
     marginHorizontal: wp("2%"),
-  },
-  removeButton: {
-    marginLeft: wp("2%"),
-  },
-  removeText: {
-    fontSize: RFValue(12),
-    color: "red",
-    fontWeight: "600",
   },
   totalContainer: {
     borderTopWidth: 1,
