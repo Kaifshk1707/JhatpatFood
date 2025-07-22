@@ -11,6 +11,8 @@ import {
 } from "react-native-responsive-screen";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../redux/reducers/cartSlice";
 
 interface FoodItem {
   id: string;
@@ -18,12 +20,13 @@ interface FoodItem {
   title: string;
   image: string;
   rating: number;
-  price: number;
+  price: string;
   description?: string;
 }
 
 const ChickenScreen = () => {
   const navigation = useNavigation();
+    const dispatch = useDispatch();
   const { t } = useTranslation();
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,9 +54,17 @@ const ChickenScreen = () => {
     fetchChickenData();
   }, []);
 
-  const handleLike = (id: string) => {
-    console.log("Liked item:", id);
-  };
+   const handlePress = useCallback((item: FoodItem) => {
+      dispatch(
+        addToCart({
+          id: item.id,
+          title: item.title,
+          image: item.image,
+          price: parseFloat(item.price),
+          quantity: 1,
+        })
+      );
+    }, []);
 
   const renderCard = (item: FoodItem) => (
     <View
@@ -95,7 +106,7 @@ const ChickenScreen = () => {
             borderRadius: 30,
             elevation: 4,
           }}
-          onPress={() => handleLike(item.id)}
+          onPress={() => handlePress(item)}
         >
           <Ionicons name="heart-outline" size={18} color="#FF6F00" />
         </TouchableOpacity>

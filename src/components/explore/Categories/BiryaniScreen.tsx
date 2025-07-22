@@ -11,6 +11,8 @@ import {
 } from "react-native-responsive-screen";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { addToCart } from "../../../redux/reducers/cartSlice";
+import { useDispatch } from "react-redux";
 
 interface FoodItem {
   id: string;
@@ -18,15 +20,28 @@ interface FoodItem {
   title: string;
   image: string;
   rating: number;
-  price: number;
+  price: string;
   description?: string;
 }
 
 const BiryaniScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const handlePress = useCallback((item: FoodItem) => {
+    dispatch(
+      addToCart({
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        price: parseFloat(item.price),
+        quantity: 1,
+      })
+    );
+  }, []);
 
   const fetchBiryaniData = useCallback(async () => {
     setLoading(true);
@@ -83,7 +98,7 @@ const BiryaniScreen = () => {
           resizeMode="cover"
         />
         <TouchableOpacity
-          onPress={() => handleLike(item.id)}
+          onPress={() => handlePress(item)}
           style={{
             position: "absolute",
             top: 10,

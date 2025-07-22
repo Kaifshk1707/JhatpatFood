@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/Store";
 import { useTranslation } from "react-i18next";
 import firestore from "@react-native-firebase/firestore";
@@ -20,7 +20,8 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { RFValue } from "react-native-responsive-fontsize";
-
+import { RootState } from "../../redux/Store";
+import { addToCart } from "../../redux/reducers/cartSlice";
 const { width } = Dimensions.get("window");
 
 interface FoodItem {
@@ -33,12 +34,13 @@ interface FoodItem {
 }
 
 const HomeScreen: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [likedItems, setLikedItems] = useState<{ [key: string]: boolean }>({});
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
 
   const fetchHomeData = useCallback(async () => {
     setLoading(true);
@@ -59,11 +61,16 @@ const HomeScreen: React.FC = () => {
     }
   }, [t]);
 
-  const handlePress = useCallback((id: string) => {
-    setLikedItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handlePress = useCallback((item: FoodItem) => {
+    dispatch(
+      addToCart({
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        price: parseFloat(item.price),
+        quantity: 1,
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -204,7 +211,8 @@ const HomeScreen: React.FC = () => {
                   resizeMode="cover"
                 />
                 <TouchableOpacity
-                  onPress={() => handlePress(item.id)}
+                  // onPress={() => handlePress(item.id)}
+                  onPress={() => handlePress(item)}
                   style={{
                     position: "absolute",
                     top: 15,

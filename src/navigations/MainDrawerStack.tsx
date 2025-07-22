@@ -18,7 +18,7 @@ const Drawer = createDrawerNavigator();
 
 const MainDrawerStack = ({ navigation }) => {
   const { t } = useTranslation();
-  const { value } = useSelector((state: RootState) => state.cartSlice);
+  const { value } = useSelector((state: RootState) => state.cart);
 
   return (
     <Drawer.Navigator

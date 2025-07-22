@@ -23,10 +23,10 @@ import {
 
 const CartScreen = () => {
   const insets = useSafeAreaInsets();
-  const cartItems = useSelector((state: RootState) => state.cartSlice.items);
   const dispatch = useDispatch<AppDispatch>();
+  const { items } = useSelector((state: RootState) => state.cart);
 
-  const total = cartItems.reduce(
+  const total = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
@@ -35,16 +35,16 @@ const CartScreen = () => {
     <View style={styles.cartItem}>
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+        <Text style={styles.itemName}>{item.title}</Text>
+        <Text style={styles.itemPrice}>₹{item.price.toFixed(2)}</Text>
         <View style={styles.quantityRow}>
           <TouchableOpacity
             onPress={() => dispatch(decrementQuantity(item.id))}
             style={styles.qtyButton}
           >
-            <Text style={styles.qtyText}>-</Text>
+            <Text style={styles.qtyText}>−</Text>
           </TouchableOpacity>
-          <Text style={styles.qtyText}>{item.quantity}</Text>
+          <Text style={styles.qtyValue}>{item.quantity}</Text>
           <TouchableOpacity
             onPress={() => dispatch(incrementQuantity(item.id))}
             style={styles.qtyButton}
@@ -65,18 +65,21 @@ const CartScreen = () => {
   return (
     <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
       <Text style={styles.title}>Your Cart</Text>
-      {cartItems.length === 0 ? (
-        <Text style={styles.emptyText}>Cart is empty</Text>
+
+      {items.length === 0 ? (
+        <Text style={styles.emptyText}>🛒 Cart is empty</Text>
       ) : (
         <>
           <FlatList
-            data={cartItems}
+            data={items}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
+            contentContainerStyle={{ paddingBottom: hp("4%") }}
           />
+
           <View style={styles.totalContainer}>
             <Text style={styles.totalText}>Total:</Text>
-            <Text style={styles.totalAmount}>${total.toFixed(2)}</Text>
+            <Text style={styles.totalAmount}>₹{total.toFixed(2)}</Text>
           </View>
         </>
       )}
@@ -89,33 +92,38 @@ export default CartScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: wp("3%"),
-    backgroundColor: "#fff",
+    backgroundColor: "#FFF",
+    paddingHorizontal: wp("5%"),
   },
   title: {
-    fontSize: RFValue(18),
+    fontSize: RFValue(20),
     fontWeight: "bold",
-    marginBottom: hp("2%"),
     color: "#FF6F00",
+    marginBottom: hp("2%"),
   },
   emptyText: {
-    fontSize: RFValue(15),
+    fontSize: RFValue(16),
     color: "#999",
     textAlign: "center",
-    marginTop: hp("8%"),
+    marginTop: hp("10%"),
   },
   cartItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: hp("2%"),
     backgroundColor: "#FFF3E0",
+    marginBottom: hp("2%"),
     padding: wp("3%"),
-    borderRadius: 12,
+    borderRadius: 14,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   image: {
-    width: wp("18%"),
-    height: wp("18%"),
-    borderRadius: 8,
+    width: wp("20%"),
+    height: wp("20%"),
+    borderRadius: 12,
   },
   itemDetails: {
     flex: 1,
@@ -124,48 +132,58 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: RFValue(15),
     fontWeight: "600",
+    color: "#333",
+    marginBottom: 4,
   },
   itemPrice: {
     fontSize: RFValue(13),
-    color: "#555",
-    marginVertical: hp("0.5%"),
+    color: "#777",
+    marginBottom: 6,
   },
   quantityRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: wp("2%"),
   },
   qtyButton: {
     width: wp("8%"),
     height: wp("8%"),
-    backgroundColor: "#FF6F00",
     borderRadius: wp("4%"),
-    justifyContent: "center",
+    backgroundColor: "#FF6F00",
     alignItems: "center",
+    justifyContent: "center",
   },
   qtyText: {
+    fontSize: RFValue(18),
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  qtyValue: {
     fontSize: RFValue(14),
     fontWeight: "600",
-    color: "#fff",
+    color: "#333",
+    marginHorizontal: wp("2%"),
   },
   removeButton: {
     marginLeft: wp("2%"),
   },
   removeText: {
+    fontSize: RFValue(12),
     color: "red",
-    fontWeight: "bold",
+    fontWeight: "600",
   },
   totalContainer: {
-    marginTop: hp("2%"),
     borderTopWidth: 1,
     borderTopColor: "#ccc",
-    paddingTop: hp("1%"),
+    paddingTop: hp("2%"),
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   totalText: {
     fontSize: RFValue(18),
     fontWeight: "bold",
+    color: "#444",
   },
   totalAmount: {
     fontSize: RFValue(18),
