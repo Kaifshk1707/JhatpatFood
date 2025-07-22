@@ -21,26 +21,26 @@ const Tab = createBottomTabNavigator();
 
 const MainBottomTab = () => {
   const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const isTablet = width >= 768; // Define tablet breakpoint
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
+          tabBarLabelStyle: styles.tabBarLabel,
+          tabBarActiveTintColor: "#FF6F00",
+          tabBarInactiveTintColor: "gray",
           tabBarStyle: [
             styles.tabBarStyle,
-            {
-              bottom: hp("2%"),
-              height: isTablet ? hp("10%") : hp("8%"),
-              borderRadius: wp("5%"),
-              paddingBottom:
-                Platform.OS === "android"
-                  ? hp(isTablet ? "1%" : "1.5%")
-                  : hp(isTablet ? "2.5%" : "3%"),
-              marginHorizontal: wp(isTablet ? "15%" : "5%"),
-            },
+            // {
+            //   bottom: hp(isTablet ? "1.5%" : "2%"),
+            //   height: isTablet ? hp("10%") : hp("8%"),
+            //   borderRadius: wp("5%"),
+            //   marginHorizontal: wp(isTablet ? "10%" : "5%"),
+            //   paddingBottom: Platform.OS === "android" ? hp("1%") : hp("2%"), // Consistent padding
+            // },
           ],
         }}
       >
@@ -48,13 +48,10 @@ const MainBottomTab = () => {
           name="Home"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({ focused }) => (
+            tabBarLabel: "Home", // Explicitly set label
+            tabBarIcon: ({ color }) => (
               <View style={styles.iconContainer}>
-                <FontAwesome
-                  name="home"
-                  size={wp("5%")}
-                  color={focused ? "#FF6F00" : "gray"}
-                />
+                <FontAwesome name="home" size={28} color={color} />
               </View>
             ),
           }}
@@ -63,13 +60,10 @@ const MainBottomTab = () => {
           name="Explore"
           component={ExploreScreen}
           options={{
-            tabBarIcon: ({ focused }) => (
+            tabBarLabel: "Explore",
+            tabBarIcon: ({ color }) => (
               <View style={styles.iconContainer}>
-                <FontAwesome
-                  name="compass"
-                  size={wp("5%")}
-                  color={focused ? "#FF6F00" : "gray"}
-                />
+                <FontAwesome name="compass" size={28} color={color} />
               </View>
             ),
           }}
@@ -78,13 +72,10 @@ const MainBottomTab = () => {
           name="Cart"
           component={CartScreen}
           options={{
-            tabBarIcon: ({ focused }) => (
+            tabBarLabel: "Cart",
+            tabBarIcon: ({ color }) => (
               <View style={styles.iconContainer}>
-                <FontAwesome
-                  name="shopping-cart"
-                  size={wp("5%")}
-                  color={focused ? "#FF6F00" : "gray"}
-                />
+                <FontAwesome name="shopping-cart" size={28} color={color} />
               </View>
             ),
           }}
@@ -93,13 +84,10 @@ const MainBottomTab = () => {
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarIcon: ({ focused }) => (
+            tabBarLabel: "Profile",
+            tabBarIcon: ({ color }) => (
               <View style={styles.iconContainer}>
-                <FontAwesome
-                  name="user"
-                  size={wp("5%")}
-                  color={focused ? "#FF6F00" : "gray"}
-                />
+                <FontAwesome name="user" size={28} color={color} />
               </View>
             ),
           }}
@@ -124,5 +112,11 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: hp("-1%"),
+  },
+  tabBarLabel: {
+    fontSize: wp("3.5%"), 
+    fontWeight: "600",
+    marginTop: hp("0.5%"),
   },
 });
