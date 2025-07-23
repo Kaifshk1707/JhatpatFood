@@ -6,6 +6,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  TextInput,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +42,9 @@ const HomeScreen: React.FC = () => {
   const [likedItems, setLikedItems] = useState<{ [key: string]: boolean }>({});
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState<FoodItem[]>([]);
+
 
   const fetchHomeData = useCallback(async () => {
     setLoading(true);
@@ -75,6 +80,18 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     fetchHomeData();
   }, [fetchHomeData]);
+
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredData(foodData);
+    } else {
+      const filtered = foodData.filter((item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }
+  }, [searchQuery, foodData]);
+
 
   const renderShimmerPlaceholders = () =>
     Array.from({ length: 6 }).map((_, index) => (
@@ -147,9 +164,52 @@ const HomeScreen: React.FC = () => {
     ));
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
+    <View style={{ flex: 1, backgroundColor: "#FDFDFD" }}>
+      {/* <View
+        style={{
+          paddingHorizontal: wp("5%"),
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: RFValue(20),
+            fontFamily: "Exo2-SemiBold",
+            color: "#34495E",
+          }}
+        >
+          {t("popular_our_food")}
+        </Text>
+      </View> */}
+      <View
+        style={{
+          paddingHorizontal: wp("5%"),
+          marginTop: hp("2%"),
+          marginBottom: hp("1%"),
+        }}
+      >
+        <TextInput
+          placeholder={t("Search...")}
+          placeholderTextColor="#aaa"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: 12,
+            paddingHorizontal: wp("4%"),
+            paddingVertical: Platform.OS === "ios" ? hp("1.5%") : hp("1%"),
+            fontSize: RFValue(13),
+            color: "#333",
+            borderColor: "#ddd",
+            borderWidth: 1,
+            elevation: 2,
+          }}
+        />
+      </View>
       <ScrollView contentContainerStyle={{ paddingBottom: hp("5%") }}>
-        <View
+        {/* <View
           style={{
             paddingHorizontal: wp("5%"),
             flexDirection: "row",
@@ -166,7 +226,7 @@ const HomeScreen: React.FC = () => {
           >
             {t("popular_our_food")}
           </Text>
-        </View>
+        </View> */}
 
         <View
           style={{
@@ -179,8 +239,8 @@ const HomeScreen: React.FC = () => {
         >
           {loading ? (
             renderShimmerPlaceholders()
-          ) : foodData.length > 0 ? (
-            foodData.map((item) => (
+          ) : filteredData.length > 0 ? (
+            filteredData.map((item) => (
               <TouchableOpacity
                 key={item.id}
                 activeOpacity={0.9}
@@ -199,7 +259,6 @@ const HomeScreen: React.FC = () => {
                   borderColor: "#ddd",
                 }}
               >
-                
                 <Image
                   source={{ uri: item.image }}
                   style={{
@@ -414,7 +473,7 @@ const HomeScreen: React.FC = () => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
