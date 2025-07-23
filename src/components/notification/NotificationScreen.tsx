@@ -2,6 +2,11 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const notifications = {
   today: [
@@ -71,31 +76,31 @@ const NotificationItem = ({ image, title, message }) => (
     style={{
       flexDirection: "row",
       alignItems: "flex-start",
-      marginBottom: 20,
+      marginBottom: hp(2.5),
     }}
   >
     <Image
       source={image}
       style={{
-        width: 32,
-        height: 32,
-        marginRight: 12,
-        marginTop: 4,
+        width: wp(8),
+        height: wp(8),
+        marginRight: wp(3),
+        marginTop: hp(0.5),
       }}
     />
     <View style={{ flex: 1 }}>
       <Text
         style={{
-          fontSize: 15,
+          fontSize: RFValue(15),
           fontWeight: "600",
-          marginBottom: 4,
+          marginBottom: hp(0.5),
         }}
       >
         {title}
       </Text>
       <Text
         style={{
-          fontSize: 13,
+          fontSize: RFValue(13),
           color: "#777",
         }}
       >
@@ -113,26 +118,26 @@ const NotificationScreen = () => {
       style={{
         flex: 1,
         backgroundColor: "#fff",
-        paddingTop: 50,
-        paddingHorizontal: 20,
+        paddingTop: hp(6),
+        paddingHorizontal: wp(5),
       }}
     >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          marginBottom: 20,
+          marginBottom: hp(2),
         }}
       >
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: wp(2.5) }}
         >
-          <Ionicons name="arrow-back" size={24} color="black" />
+          <Ionicons name="arrow-back" size={RFValue(20)} color="black" />
         </TouchableOpacity>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: RFValue(20),
             fontWeight: "600",
           }}
         >
@@ -143,11 +148,11 @@ const NotificationScreen = () => {
       {/* Today Section */}
       <Text
         style={{
-          fontSize: 16,
+          fontSize: RFValue(16),
           fontWeight: "500",
           color: "#444",
-          marginTop: 20,
-          marginBottom: 10,
+          marginTop: hp(2),
+          marginBottom: hp(1),
         }}
       >
         Today
@@ -164,11 +169,11 @@ const NotificationScreen = () => {
       {/* Yesterday Section */}
       <Text
         style={{
-          fontSize: 16,
+          fontSize: RFValue(16),
           fontWeight: "500",
           color: "#444",
-          marginTop: 20,
-          marginBottom: 10,
+          marginTop: hp(2),
+          marginBottom: hp(1),
         }}
       >
         Yesterday
@@ -185,11 +190,11 @@ const NotificationScreen = () => {
       {/* Last Week Section */}
       <Text
         style={{
-          fontSize: 16,
+          fontSize: RFValue(16),
           fontWeight: "500",
           color: "#444",
-          marginTop: 20,
-          marginBottom: 10,
+          marginTop: hp(2),
+          marginBottom: hp(1),
         }}
       >
         Last Week

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons"; // ✅ Fix import
+import { AntDesign } from "@expo/vector-icons"; 
 
 const { height } = Dimensions.get("window");
 
@@ -12,14 +12,14 @@ const SplashScreenTwo = () => {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {/* Top Image */}
       <Image
-        source={require("./../../assets/Image/splash2.jpg")}
+        source={require("./../../assets/Image/splashTwo.jpg")}
         resizeMode="cover"
         style={{
           width: "100%",
           height: height * 0.6,
           borderBottomLeftRadius: 30,
           borderBottomRightRadius: 30,
-          alignSelf:"center"
+          alignSelf: "center",
         }}
       />
 

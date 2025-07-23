@@ -8,35 +8,40 @@ import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/Store";
 import { useTranslation } from "react-i18next";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Drawer = createDrawerNavigator();
 
-const MainDrawerStack = ({navigation}) => {
+const MainDrawerStack = ({ navigation }) => {
   const { t } = useTranslation();
   const { value } = useSelector((state: RootState) => state.cartSlice);
+
   return (
     <Drawer.Navigator
       initialRouteName={t("jhatpat_food")}
       screenOptions={{
         headerStyle: {
-          backgroundColor: "#FF6F00", // Top AppBar background color
+          backgroundColor: "#FF6F00",
         },
-        headerTintColor: "#fff", // AppBar title/icon color
+        headerTintColor: "#fff",
         drawerStyle: {
-          backgroundColor: "#fff", // Drawer background
-          width: 260,
+          backgroundColor: "#fff",
+          width: wp("65%"),
         },
-        drawerActiveBackgroundColor: "#FFE0B2", // Selected item background
-        drawerActiveTintColor: "#FF6F00", // Selected item text & icon
-        drawerInactiveTintColor: "#555", // Unselected text & icon
+        drawerActiveBackgroundColor: "#FFE0B2",
+        drawerActiveTintColor: "#FF6F00",
+        drawerInactiveTintColor: "#555",
         drawerLabelStyle: {
-          fontSize: 16,
-          marginLeft: -10, // Fixes label spacing with icon
+          fontSize: RFValue(15),
+          marginLeft: -wp("2.5%"),
         },
         drawerItemStyle: {
-          marginVertical: 4, // Vertical space between items
-          borderRadius: 8,
+          marginVertical: hp("0.5%"),
+          borderRadius: wp("2%"),
         },
       }}
     >
@@ -44,52 +49,55 @@ const MainDrawerStack = ({navigation}) => {
         name={t("jhatpat_food")}
         component={MainBottomTab}
         options={{
-          drawerLabel: "Home",
+          drawerLabel: t("home"),
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Ionicons name="home" size={RFValue(22)} color={color} />
           ),
           headerRight: () => (
             <View
               style={{
-                marginRight: 15,
+                marginRight: wp("4%"),
                 flexDirection: "row",
                 alignItems: "center",
-                padding: 10,
+                padding: wp("2%"),
               }}
             >
               <Ionicons
                 name="notifications-outline"
-                size={32}
+                size={RFValue(24)}
                 color="#fff"
                 onPress={() => {
                   navigation.navigate("NotificationScreen");
                 }}
+                style={{ marginRight: wp("4%") }}
               />
               <Ionicons
                 name="cart-outline"
-                size={32}
+                size={RFValue(24)}
                 color="#fff"
-                // onPress={() => {
-                //   navigation.navigate("CartScreen");
-                // }}
+                // onPress={() => navigation.navigate("CartScreen")}
               />
               {value > 0 && (
                 <View
                   style={{
                     position: "absolute",
-                    top: -4,
-                    right: -6,
+                    top: hp("-0.5%"),
+                    right: wp("1%"),
                     backgroundColor: "red",
-                    borderRadius: 10,
-                    minWidth: 24,
-                    height: 24,
-                    paddingHorizontal: 2,
+                    borderRadius: wp("5%"),
+                    minWidth: wp("6%"),
+                    height: wp("6%"),
+                    paddingHorizontal: wp("1%"),
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
                   <Text
-                    style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}
+                    style={{
+                      color: "#fff",
+                      fontSize: RFValue(12),
+                      fontWeight: "bold",
+                    }}
                   >
                     {value > 99 ? "99+" : value}
                   </Text>
@@ -99,23 +107,29 @@ const MainDrawerStack = ({navigation}) => {
           ),
         }}
       />
+
       <Drawer.Screen
         name="Settings"
         component={Settings}
         options={{
-          drawerLabel: "Settings",
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+          drawerLabel: t("settings"),
+          drawerIcon: ({ color }) => (
+            <Ionicons name="settings" size={RFValue(22)} color={color} />
           ),
         }}
       />
+
       <Drawer.Screen
         name="AboutUs"
         component={AboutUs}
         options={{
-          drawerLabel: "About Us",
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="information-circle" size={size} color={color} />
+          drawerLabel: t("about_us"),
+          drawerIcon: ({ color }) => (
+            <Ionicons
+              name="information-circle"
+              size={RFValue(22)}
+              color={color}
+            />
           ),
         }}
       />

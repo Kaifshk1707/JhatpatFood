@@ -14,8 +14,15 @@ import {
   decrementQuantity,
   removeFromCart,
 } from "../../redux/reducers/cartSlice";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { RFValue } from "react-native-responsive-fontsize";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const CartScreen = () => {
+  const insets = useSafeAreaInsets();
   const cartItems = useSelector((state: RootState) => state.cartSlice.items);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,7 +34,7 @@ const CartScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.cartItem}>
       <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={{ flex: 1, marginLeft: 10 }}>
+      <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
         <View style={styles.quantityRow}>
@@ -48,15 +55,15 @@ const CartScreen = () => {
       </View>
       <TouchableOpacity
         onPress={() => dispatch(removeFromCart(item.id))}
-        style={{ marginLeft: 10 }}
+        style={styles.removeButton}
       >
-        <Text style={{ color: "red", fontWeight: "bold" }}>Remove</Text>
+        <Text style={styles.removeText}>Remove</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top + 16 }]}>
       <Text style={styles.title}>Your Cart</Text>
       {cartItems.length === 0 ? (
         <Text style={styles.emptyText}>Cart is empty</Text>
@@ -82,42 +89,46 @@ export default CartScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: wp("3%"),
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
+    fontSize: RFValue(18),
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: hp("2%"),
     color: "#FF6F00",
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: RFValue(15),
     color: "#999",
     textAlign: "center",
-    marginTop: 50,
+    marginTop: hp("8%"),
   },
   cartItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: hp("2%"),
     backgroundColor: "#FFF3E0",
-    padding: 10,
+    padding: wp("3%"),
     borderRadius: 12,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: wp("18%"),
+    height: wp("18%"),
     borderRadius: 8,
   },
+  itemDetails: {
+    flex: 1,
+    marginLeft: wp("4%"),
+  },
   itemName: {
-    fontSize: 16,
+    fontSize: RFValue(15),
     fontWeight: "600",
   },
   itemPrice: {
-    fontSize: 14,
+    fontSize: RFValue(13),
     color: "#555",
-    marginVertical: 4,
+    marginVertical: hp("0.5%"),
   },
   quantityRow: {
     flexDirection: "row",
@@ -125,32 +136,39 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   qtyButton: {
-    width: 30,
-    height: 30,
+    width: wp("8%"),
+    height: wp("8%"),
     backgroundColor: "#FF6F00",
-    borderRadius: 15,
+    borderRadius: wp("4%"),
     justifyContent: "center",
     alignItems: "center",
   },
   qtyText: {
-    fontSize: 16,
+    fontSize: RFValue(14),
     fontWeight: "600",
     color: "#fff",
   },
+  removeButton: {
+    marginLeft: wp("2%"),
+  },
+  removeText: {
+    color: "red",
+    fontWeight: "bold",
+  },
   totalContainer: {
-    marginTop: 20,
+    marginTop: hp("2%"),
     borderTopWidth: 1,
     borderTopColor: "#ccc",
-    paddingTop: 10,
+    paddingTop: hp("1%"),
     flexDirection: "row",
     justifyContent: "space-between",
   },
   totalText: {
-    fontSize: 20,
+    fontSize: RFValue(18),
     fontWeight: "bold",
   },
   totalAmount: {
-    fontSize: 20,
+    fontSize: RFValue(18),
     fontWeight: "bold",
     color: "#FF6F00",
   },
