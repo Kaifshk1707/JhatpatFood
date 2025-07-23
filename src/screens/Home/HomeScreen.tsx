@@ -41,7 +41,6 @@ const HomeScreen: React.FC = () => {
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-
   const fetchHomeData = useCallback(async () => {
     setLoading(true);
     try {
@@ -184,22 +183,23 @@ const HomeScreen: React.FC = () => {
             foodData.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                activeOpacity={0.8}
+                activeOpacity={0.9}
                 style={{
                   width: width * 0.45,
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: 18,
-                  marginBottom: hp("2%"),
-                  padding: wp("1%"),
+                  backgroundColor: "#fff",
+                  borderRadius: 20,
+                  marginBottom: hp("2.5%"),
+                  padding: wp("2%"),
                   shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 5 },
+                  shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.1,
-                  shadowRadius: 10,
-                  elevation: 10,
-                  borderWidth: 0.5,
-                  borderColor: "#eee",
+                  shadowRadius: 8,
+                  elevation: 6,
+                  borderWidth: 0.2,
+                  borderColor: "#ddd",
                 }}
               >
+                
                 <Image
                   source={{ uri: item.image }}
                   style={{
@@ -210,21 +210,26 @@ const HomeScreen: React.FC = () => {
                   }}
                   resizeMode="cover"
                 />
-                <TouchableOpacity
-                  // onPress={() => handlePress(item.id)}
-                  onPress={() => handlePress(item)}
+                {/* Like Button */}
+                {/* <TouchableOpacity
+                  onPress={() =>
+                    setLikedItems((prev) => ({
+                      ...prev,
+                      [item.id]: !prev[item.id],
+                    }))
+                  }
                   style={{
                     position: "absolute",
-                    top: 15,
-                    right: 15,
-                    backgroundColor: "#FFFFFF",
-                    padding: 7,
-                    borderRadius: 25,
+                    top: 10,
+                    right: 10,
+                    backgroundColor: "#fff",
+                    padding: 6,
+                    borderRadius: 20,
                     shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.15,
-                    shadowRadius: 3,
-                    elevation: 4,
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 2,
+                    elevation: 3,
                   }}
                 >
                   <Ionicons
@@ -232,25 +237,28 @@ const HomeScreen: React.FC = () => {
                     size={RFValue(20)}
                     color="#FF6F00"
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                {/* Title */}
                 <Text
                   numberOfLines={1}
                   style={{
                     fontFamily: "Exo2-SemiBold",
-                    fontSize: RFValue(15),
-                    color: "#333333",
+                    fontSize: RFValue(14),
+                    color: "#2C3E50",
                   }}
                 >
                   {item.title}
                 </Text>
+                {/* Divider */}
                 <View
                   style={{
-                    height: 1.5,
-                    backgroundColor: "#FFEBCC",
-                    marginVertical: 10,
+                    height: 1,
+                    backgroundColor: "#f0f0f0",
+                    marginVertical: 8,
                     borderRadius: 30,
                   }}
                 />
+                {/* Rating and Price */}
                 <View
                   style={{
                     flexDirection: "row",
@@ -262,22 +270,111 @@ const HomeScreen: React.FC = () => {
                     style={{
                       fontSize: RFValue(12),
                       fontFamily: "Exo2-Medium",
-                      color: "#777777",
+                      color: "#7f8c8d",
                     }}
                   >
                     ⭐ {item.rating}
                   </Text>
                   <Text
                     style={{
-                      fontSize: RFValue(13),
+                      fontSize: RFValue(14),
                       fontFamily: "Exo2-Bold",
-                      color: "#FF6F00",
+                      color: "#E67E22",
                     }}
                   >
                     ₹{item.price}
                   </Text>
                 </View>
+                {/* Add to Cart */}
+                <TouchableOpacity
+                  onPress={() => handlePress(item)}
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: "#FF6F00",
+                    paddingVertical: 6,
+                    borderRadius: 14,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: RFValue(12),
+                      fontFamily: "Exo2-Bold",
+                    }}
+                  >
+                    Add to Cart
+                  </Text>
+                </TouchableOpacity>
               </TouchableOpacity>
+
+              //****************************************************************************************************************
+              // <View
+              //   style={{
+              //     backgroundColor: "#fff",
+              //     borderRadius: 16,
+              //     marginTop: 30,
+              //     shadowColor: "#000",
+              //     shadowOffset: { width: 0, height: 3 },
+              //     shadowOpacity: 0.1,
+              //     shadowRadius: 6,
+              //     elevation: 4,
+              //     overflow: "hidden",
+              //   }}
+              // >
+              //   <Image
+              //     source={{ uri: item.image }}
+              //     style={{ width: "100%", height: 180 }}
+              //     resizeMode="cover"
+              //   />
+
+              //   <View style={{ padding: 16 }}>
+              //     <Text style={{ fontSize: 18, fontWeight: "700" }}>
+              //       {item.title}
+              //     </Text>
+              //     <Text style={{ fontSize: 14, color: "#999", marginTop: 2 }}>
+              //       {item.price}
+              //     </Text>
+
+              //     <View
+              //       style={{
+              //         flexDirection: "row",
+              //         alignItems: "center",
+              //         marginTop: 10,
+              //         justifyContent: "space-between",
+              //       }}
+              //     >
+              //       <View
+              //         style={{ flexDirection: "row", alignItems: "center" }}
+              //       >
+              //         <Ionicons name="star" size={16} color="#FFA500" />
+              //         <Text style={{ marginLeft: 4 }}>
+              //           {item.rating}
+              //         </Text>
+              //       </View>
+              //       <Text
+              //         style={{
+              //           fontSize: 16,
+              //           fontWeight: "700",
+              //           color: "#FF6347",
+              //         }}
+              //       >
+              //         {featuredFood.price}
+              //       </Text>
+              //     </View>
+
+              //     <Text
+              //       style={{
+              //         fontSize: 13,
+              //         color: "#666",
+              //         marginTop: 10,
+              //         lineHeight: 18,
+              //       }}
+              //     >
+              //       {featuredFood.description}
+              //     </Text>
+              //   </View>
+              // </View>
             ))
           ) : (
             <View
